@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block aside_description %}
+{% endblock %}
+{% block content %}
+    <div class="search">
+        <div class="search " style="margin-bottom: 20px; font-size:11px;">
+            <form method="get" action="{{ url_for('search') }}">
+                <input type="search" name="q" placeholder="Recherche"/>
+                <input type="radio" id="article" name="type" value="article" selected/> <label for="article">articles</label>
+                <input type="radio" id="book" name="type" value="book"/> <label for="book">livres</label>
+                <input type="radio" id="prediction" name="type" value="prediction"/> <label
+                    for="prediction">prédictions</label>
+            </form>
+        </div>
+        <h1>Résultat</h1>
+        <h1>Résultats: {{ results|length }} élément(s)</h1>
+        <ul>{% for result in results %}
+            <li><a href="{{ url_for('post', slug=result.slug) }}">{{ result.title }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

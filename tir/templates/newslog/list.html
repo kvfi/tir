@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Plog Letters</h1>
+    <form method="post" action="{{ url_for('sites.plog.list') }}">
+        <input type="text" name="email" placeholder="Email"/>
+        <input type="submit" value="Send"/>
+    </form>
+{% endblock %}

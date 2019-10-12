@@ -1,0 +1,122 @@
+code {
+  font-family: "Lucida Console", Monaco, monospace;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f6f6f6;
+  font-size: 90%;
+  margin-bottom: 5px;
+}
+
+table {
+  width: 100%;
+  caption {
+    padding: 10px 0;
+    font-size: 18px;
+  }
+  td:first-child {
+    padding-left: 10px;
+  }
+  td:last-child {
+    padding-right: 10px;
+  }
+  thead {
+    padding: 5px 0;
+    tr {
+      th {
+        text-align: left;
+        font-weight: bold;
+        padding: 0 10px;
+      }
+    }
+  }
+  tbody {
+    tr:nth-child(even) {
+      background: rgba(230, 242, 255, 0.5);
+    }
+    td {
+      padding: 5px 0;
+    }
+  }
+}
+
+.fright {
+  float: right;
+}
+
+.legend_marker {
+  margin: 0 0 20px 0;
+  .legend {
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  span {
+    color: #333;
+    font-style: italic;
+  }
+  .markers {
+    font-size: 12px;
+  }
+  span {
+    margin-right: 30px;
+  }
+}
+
+.ongoing-exp {
+  margin: 0 0 20px 0;
+  background-color: #FFF8DC;
+  border: 1px solid #E0DCBF;
+  font-size: 14px;
+  padding: 5px 10px;
+  p {
+    font-size: 16px;
+  }
+  span.title {
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
+.qm {
+  cursor: help;
+}
+
+.tooltip {
+  position: relative;
+  position-z-index: 200;
+  .tooltip-content {
+    z-index: 100;
+    width: 200px;
+    position: absolute;
+    display: none;
+    top: 0;
+    margin-top: 30px;
+    left: -100px;
+    padding: 5px 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    &:after,
+    &:before {
+      bottom: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+    &:after {
+      border-color: rgba(136, 183, 213, 0);
+      border-bottom-color: #FFFFFF;
+      border-width: 4px;
+      margin-left: -4px;
+    }
+    &:before {
+      border-color: rgba(194, 225, 245, 0);
+      border-bottom-color: #DDDDDD;
+      border-width: 6px;
+      margin-left: -6px;
+    }
+  }
+}

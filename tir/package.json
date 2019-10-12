@@ -1,0 +1,30 @@
+{
+  "name": "tir",
+  "version": "0.0.1",
+  "description": "A minimalist static site generator",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/grunt/bin/grunt build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/kvfi/ktir"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/kvfi/tir/issues"
+  },
+  "homepage": "https://gitlab.com/kvfi/tir#README",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-sass": "^3.0.2",
+    "jshint": "^2.10.1",
+    "load-grunt-tasks": "^4.0.0",
+    "node-sass": "^4.11.0"
+  }
+}

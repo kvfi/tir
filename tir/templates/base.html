@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{{ head.title }}</title>
+    <meta name="description" content="{{ head.description }}"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='dist/images/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='dist/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='dist/images/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/app.css') }}" type="text/css" media="screen">
+</head>
+<body class="{{ css_class }}">
+<div class="container fw">
+    <div class="row">
+        <div class="column one-ninth">
+            <div class="aside">
+                <a class="logo" href="{{ url_for('index') }}"><img alt="ouafi.net"
+                                                                   src="{{ url_for('static', filename='images/gal.jpg') }}"/></a>
+                <p class="quote">Dans un monde fou, toute forme d'écriture est un remède psychiatrique</p>
+                <ul class="menu">
+                    <li><a href="{{ url_for('index') }}">accueil</a></li>
+                    <li><a href="{{ url_for('post', slug='Bio') }}">bio</a></li>
+                    <li><a href="https://github.com/kvfi">github</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="column {% if post.slug == 'index' %}half{% else %}two-fifth{% endif %}">
+            {% block content %}
+            {% endblock %}
+            {% block pagination %}
+            {% endblock %}
+            <footer>
+                {# <p>{{ _('The author has placed this work in the Public Domain, thereby relinquishing all copyrights.
+                Everyone is free to use, modify, republish, sell or give away this work without prior consent from
+                anybody.') }}</p> #}
+                <p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
+                    <a rel="license"
+                       href="http://creativecommons.org/publicdomain/zero/1.0/">
+                        <img src="https://licensebuttons.net/p/zero/1.0/80x15.png" style="border-style: none;"
+                             alt="CC0"/>
+                    </a>
+                    <br/>
+                    To the extent possible under law,
+                    <a rel="dct:publisher"
+                       href="https://ouafi.net">
+                        <span property="dct:title">K. Ouafi</span></a>
+                    has waived all copyright and related or neighboring rights to
+                    <span property="dct:title">Personal site</span>.
+                    This work is published from:
+                    <span property="vcard:Country" datatype="dct:ISO3166"
+                          content="MA" about="https://ouafi.net">
+  Morocco</span>.
+                </p>
+            </footer>
+        </div>
+    </div>
+</div>
+</body>
