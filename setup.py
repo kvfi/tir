@@ -47,7 +47,7 @@ setup(
     author="kvfi",
     author_email="mail@mail.net",
     url="https://ouafi.net/tir",
-    license="http://www.apache.org/licenses/LICENSE-2.0",
+    license="https://www.gnu.org/licenses/gpl-3.0.en.html",
     description=(
         "Minimalist static site generator"
     ),
