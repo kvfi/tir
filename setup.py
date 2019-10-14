@@ -22,6 +22,21 @@ if setuptools is not None:
     python_requires = ">= 3.5"
     kwargs["python_requires"] = python_requires
 
+# Inpired from https://github.com/indico/newdle/blob/master/setup.py
+def read_requirements_file(fname):
+    with open(fname, 'r') as f:
+        return [
+            dep.strip()
+            for dep in f.readlines()
+            if not (dep.startswith('-') or '://' in dep)
+        ]
+
+    
+def get_requirements():
+    return read_requirements_file(
+        os.path.join(os.path.dirname(__file__), 'requirements.txt')
+    )
+
 
 def package_files(directory):
     paths = []
@@ -52,7 +67,7 @@ setup(
         "Minimalist static site generator"
     ),
     classifiers=[
-        "License :: OSI Approved :: Apache Software License",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
@@ -61,7 +76,7 @@ setup(
         "Programming Language :: Python :: Implementation :: PyPy",
     ],
     setup_requires=['wheel'],
-    install_requires=['jinja2', 'markdown', 'pyyaml'],
+    install_requires=get_requirements(),
     package_data={
         'tir': initial_files},
     entry_points={
