@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+  - "3.7"
+install:
+  - pip install --upgrade  setuptools wheel pip
+  - pip install -r requirements-test.txt
+script:
+  - codecov
+  - python setup.py sdist bdist_wheel
