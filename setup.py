@@ -10,17 +10,18 @@ except ImportError:
 
 kwargs = {}
 
-with open("tir/__init__.py") as f:
+with open('tir/__init__.py') as f:
     ns = {}
     exec(f.read(), ns)
-    version = ns["version"]
+    version = ns['version']
 
-with open("README.md") as f:
-    kwargs["long_description"] = f.read()
+with open('README.md') as f:
+    kwargs['long_description'] = f.read()
 
 if setuptools is not None:
-    python_requires = ">= 3.5"
-    kwargs["python_requires"] = python_requires
+    python_requires = '>= 3.5'
+    kwargs['python_requires'] = python_requires
+
 
 # Inpired from https://github.com/indico/newdle/blob/master/setup.py
 def read_requirements_file(fname):
@@ -31,7 +32,7 @@ def read_requirements_file(fname):
             if not (dep.startswith('-') or '://' in dep)
         ]
 
-    
+
 def get_requirements():
     return read_requirements_file(
         os.path.join(os.path.dirname(__file__), 'requirements.txt')
@@ -56,27 +57,31 @@ initial_files = ['logging.yml',
                  'assets/**/**/*']
 
 setup(
-    name="tir",
+    name='tir',
     version=version,
-    packages=["tir"],
-    author="kvfi",
-    author_email="mail@mail.net",
-    url="https://ouafi.net/tir",
-    license="https://www.gnu.org/licenses/gpl-3.0.en.html",
+    packages=['tir'],
+    author='kvfi',
+    author_email='mail@mail.net',
+    url='https://ouafi.net/tir',
+    license='https://www.gnu.org/licenses/gpl-3.0.en.html',
     description=(
-        "Minimalist static site generator"
+        'Minimalist static site generator'
     ),
     classifiers=[
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: Implementation :: CPython",
-        "Programming Language :: Python :: Implementation :: PyPy",
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: Implementation :: CPython',
+        'Programming Language :: Python :: Implementation :: PyPy',
     ],
     setup_requires=['wheel'],
-    install_requires=get_requirements(),
+    install_requires=[
+        'jinja2',
+        'markdown',
+        'pyyaml'
+    ],
     package_data={
         'tir': initial_files},
     entry_points={
