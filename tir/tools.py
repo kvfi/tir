@@ -5,6 +5,8 @@ todos:
 * check if toc is rendered
 * get stats at the end of build
 * make configurable options: github, website, url, http/https, templates
+* remove personal files and replace with samples (logo, ...)
+* don't remove tir.yml if it already exists
 """
 
 import os
@@ -16,6 +18,7 @@ import pkg_resources
 from jinja2 import Environment, FileSystemLoader
 
 from tir.posts import Post
+from tir.settings import config
 
 
 def url_for(route, slug=None, filename=''):
@@ -96,6 +99,7 @@ def build():
         env.globals['url_for'] = url_for
         env.globals['_'] = _
         env.globals['format_date'] = format_date
+        env.globals['config'] = config
         print('Building...')
         slugs = Post.get_slugs()
         target_dir = 'build/html/'
