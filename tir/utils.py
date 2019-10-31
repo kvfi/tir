@@ -1,6 +1,7 @@
 import os
 import platform
 import shutil
+import warnings
 from datetime import datetime
 from os import listdir
 from os.path import dirname, join
@@ -22,6 +23,16 @@ def load_env(path='default'):
         n = var.split('=')
         envars.update({n[0]: n[1].rstrip()})
     return envars
+
+
+def app_config():
+    try:
+        with open('tir.yml') as f:
+            config = yaml.load(f.read(), Loader=yaml.FullLoader)
+        print(config)
+        return config
+    except FileNotFoundError:
+        warnings.warn('No configuration file was found.')
 
 
 def load_logging():
