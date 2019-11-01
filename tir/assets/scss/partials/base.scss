@@ -4,7 +4,7 @@ $regular: 400;
 $bold: 600;
 
 // Base Font
-$base-font-family: Baskerville, libre baskerville, serif;
+$base-font-family: TimesNewRoman, Times New Roman, Times,Baskerville, Georgia,serif;
 $base-font-weight: $regular;
 $base-font-size: 16px;
 $base-line-height: 22.4px;
@@ -89,6 +89,11 @@ dl {
 
 blockquote {
   overflow: auto;
+  background-color: #f5f5f5;
+  padding: 4px 10px 4px 30px;
+  margin: 0 0 20px;
+  color: #444444;
+  display: block;
 }
 
 p, li {
@@ -203,7 +208,12 @@ form h5 {
 }
 
 pre {
-  font: 13px monospace;
+  font-family: $code-font-family;
+
+  code {
+    display: inline-block;
+    padding: 10px 20px;
+  }
 }
 
 hr.divider {
