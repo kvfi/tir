@@ -92,7 +92,14 @@ def build():
         return False
     try:
         templates_dir = pkg_resources.resource_filename('tir', 'templates')
-        print(templates_dir)
+        print('Replace assets files')
+        assets_src_dir = pkg_resources.resource_filename('tir', 'assets')
+        assets_target_dir = '{}/{}'.format(os.getcwd(), 'assets')
+        print('Removing {}'.format(assets_target_dir))
+        if os.path.exists(assets_target_dir):
+            shutil.rmtree(assets_target_dir)
+        shutil.copytree(assets_src_dir, assets_target_dir)
+        print('Assets successfully updated')
         env = Environment(loader=FileSystemLoader(templates_dir))
         post_tpl = env.get_template('post.html')
         index_tpl = env.get_template('home.html')
