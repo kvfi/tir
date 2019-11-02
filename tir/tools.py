@@ -81,7 +81,10 @@ def init():
     shutil.copytree(pkg_resources.resource_filename('tir', 'assets'),
                     '{}/{}'.format(os.getcwd(), 'assets'))
     print('Installing NodeJS deps...')
-    subprocess.run(['yarn', 'install'])
+    try:
+        subprocess.run(['yarn', 'install'])
+    except Exception:
+        print('An error has occured. Are you sure "yarn" is installed on your system?')
     print('Tir project was successfully installed.')
     return True
 
