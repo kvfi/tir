@@ -11,6 +11,5 @@ script:
   - codecov
   - python setup.py sdist bdist_wheel
   - twine check dist/*
-  - twine upload --repository-url https://test.pypi.org/legacy/ dist/* --skip-existing dist/*
-  - pip install tir
-  -
+  - if [ "$TRAVIS_BRANCH" = "develop" ]; then twine upload --repository-url https://test.pypi.org/legacy/ dist/*; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then twine upload --repository-url https://pypi.org/legacy/ dist/*; fi
