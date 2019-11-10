@@ -1,5 +1,7 @@
 language: python
 
+python: "3.5"
+
 install:
   - pip install --upgrade setuptools wheel pip
   - pip install -r requirements-test.txt
@@ -12,8 +14,6 @@ jobs:
       - "3.6"
       - "3.7"
     script: codecov
-  - stage: build
-    script: ./deploy
   - stage: packaging
     script:
       - python setup.py sdist bdist_wheel
