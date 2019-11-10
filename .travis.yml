@@ -1,15 +1,26 @@
 language: python
-python:
-  - "3.5"
-  - "3.6"
-  - "3.7"
+
 install:
   - pip install --upgrade setuptools wheel pip
   - pip install -r requirements-test.txt
   - pip install twine
-script:
-  - codecov
-  - python setup.py sdist bdist_wheel
-  - twine check dist/*
-  - if [ "$TRAVIS_BRANCH" = "develop" ]; then twine upload --repository-url https://test.pypi.org/legacy/ dist/*; fi
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then twine upload dist/*; fi
+
+jobs:
+  - stage: test
+    python:
+      - "3.5"
+      - "3.6"
+      - "3.7"
+    script: codecov
+  - stage: build
+    script: ./deploy
+  - stage: packaging
+    script:
+      - python setup.py sdist bdist_wheel
+      - twine check dist/*
+  - stage: deploy_test
+    if: branch = develop
+    script: twine upload --repository-url https://test.pypi.org/legacy/ dist/*;
+  - stage: deploy
+    if: branch = master
+    script: twine upload dist/*;
