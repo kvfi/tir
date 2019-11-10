@@ -4,10 +4,6 @@ language: python
 
 python: "3.5"
 
-cache:
-  directories:
-    -  dist
-
 install:
   - pip install --upgrade setuptools wheel pip
   - pip install -r requirements-test.txt
@@ -26,4 +22,6 @@ jobs:
       script: twine upload --repository-url https://test.pypi.org/legacy/ dist/*
     - stage: deploy
       if: branch = master
-      script: twine upload dist/*
+      script:
+        - python setup.py sdist bdist_wheel
+        - twine upload dist/*
