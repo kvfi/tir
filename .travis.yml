@@ -4,6 +4,10 @@ language: python
 
 python: "3.5"
 
+cache:
+  directories:
+    -  dist
+
 install:
   - pip install --upgrade setuptools wheel pip
   - pip install -r requirements-test.txt
