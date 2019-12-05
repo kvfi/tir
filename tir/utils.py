@@ -9,6 +9,8 @@ from os.path import dirname, join
 import pkg_resources
 import yaml
 
+import sys
+
 
 def load_env(path='default'):
     directory = dirname(__file__)
@@ -54,6 +56,10 @@ def remove_list_meta(meta):
 
 def is_windows():
     return platform.system() == 'Windows'
+
+
+def is_linux():
+    return platform.system() == 'Linux'
 
 
 def scan_dir(directory=None, extensions=None):
