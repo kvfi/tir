@@ -9,6 +9,7 @@ todos:
 * don't remove tir.yml if it already exists
 """
 
+import logging
 import os
 import shutil
 import subprocess
@@ -19,6 +20,9 @@ from jinja2 import Environment, FileSystemLoader
 
 from tir.posts import Post
 from tir.settings import config
+from tir.utils import is_linux, is_windows
+
+log = logging.getLogger(__name__)
 
 
 def url_for(route, slug=None, filename=''):
@@ -142,7 +146,13 @@ def build():
             ))
 
         print('Building static files...')
-        subprocess.run(['yarn', 'build'])
+        if is_linux():
+            subprocess.run(['yarn', 'build'])
+        elif is_windows():
+            subprocess.Popen(['yarn', 'build'], shell=True)
+        else:
+            log.fatal('System is not supported')  # this has to be checked at init
+            return False
         copytree('assets/images', '{}/static/images'.format(target_dir))
     except Exception as e:
         raise e
