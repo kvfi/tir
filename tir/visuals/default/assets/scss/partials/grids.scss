@@ -1,0 +1,130 @@
+@import "../variables";
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/****
+ * To get the column width in percentage (including margins):
+ * add number of columns, substract one then divide by the number of columns
+ *****/
+.row {
+  .column {
+	float: left;
+	margin-left: $column-margin;
+
+	&:first-child {
+	  margin-left: 0;
+	}
+  }
+
+  .offset-one-fifth {
+	margin-left: calc((100% / 5) - #{$column-margin})
+  }
+
+  .full {
+	width: 100%;
+  }
+
+  .two-thirds {
+	width: calc((100% / 3 * 2) - #{$column-margin});
+  }
+
+  .half {
+	width: calc(50% - #{$column-margin});
+  }
+
+  .one-third {
+	width: calc((100% / 3) - #{$column-margin});
+  }
+
+  .one-fourth {
+	width: calc((100% / 4) - #{$column-margin});
+  }
+
+  .three-fourth {
+	width: calc(((100% / 4) * 2) - #{$column-margin});
+  }
+
+  /* FIFTHS */
+  .one-fifth {
+	width: calc((100% / 5) - #{$column-margin});
+  }
+
+  .two-fifth {
+	width: calc((100% / 5 * 2) - #{$column-margin});
+  }
+
+  .three-fifth {
+	width: calc((100% / 5 * 3) - #{$column-margin});
+  }
+
+  .four-fifth {
+	width: calc((100% / 5 * 4) - #{$column-margin});
+  }
+
+  .one-sixth {
+	width: calc((100% / 6) - #{$column-margin});
+  }
+
+  .three-sixth {
+	width: calc((100% / 3) - #{$column-margin});
+  }
+
+  .five-sixth {
+	width: calc(((100% / 6) * 5) - #{$column-margin});
+  }
+
+  .one-seventh {
+	width: calc((100% / 7) - #{$column-margin});
+  }
+
+  .six-seventh {
+	width: calc(((100% / 7) * 6) - #{$column-margin});
+  }
+
+  .one-eighth {
+	width: calc((100% / 8) - #{$column-margin});
+  }
+
+  /* NINTH */
+  .one-ninth {
+	width: calc((100% / 9) - #{$column-margin});
+  }
+
+  .eight-ninth {
+	width: calc(((100% / 9) * 8) - #{$column-margin});
+  }
+
+  .one-tenth {
+	width: calc(10% - #{$column-margin});
+  }
+
+  .eigth-tenth {
+	width: calc(10% - #{$column-margin});
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .column.full,
+  .column.two-thirds,
+  .column.two-fifth,
+  .column.half,
+  .column.one-third,
+  .column.one-fourth,
+  .column.one-fifth,
+  .column.one-sixth,
+  .column.five-sixth,
+  .column.one-seventh,
+  .column.six-seventh,
+  .column.one-ninth,
+  .column.eight-ninth,
+  .column.one-tenth {
+	float: none;
+	margin: 0;
+	width: 100%;
+	padding: 10px;
+  }
+}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block heading %}
+{% endblock %}
+{% block content %}
+    <div class="index-intro">
+        {{ content.intro.content|safe }}
+    </div>
+{% endblock %}
+{% block pagination %}
+    {{ pagination }}
+{% endblock %}

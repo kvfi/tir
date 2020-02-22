@@ -1,0 +1,291 @@
+@import "../partials/base";
+
+.index-intro {
+  margin: 0 0 30px;
+  padding: 0 0 10px;
+
+  img {
+	width: 100%;
+  }
+
+  p {
+	margin-top: 10px;
+
+	&:first-of-type {
+	  margin-top: 0;
+	}
+
+	&:last-of-type {
+	  margin-bottom: 0;
+	}
+  }
+}
+
+.home-articles {
+  h5 {
+	font-size: 1.2em;
+	margin: 0 0 5px 0;
+	display: inline-block;
+	font-weight: normal;
+	color: #555;
+  }
+
+  ul {
+	li {
+	  margin: 0;
+	  padding-left: 1em;
+
+	  a {
+		border-bottom: none;
+	  }
+
+	  time {
+		float: right;
+		font-size: 16px;
+		color: #bbb;
+	  }
+	}
+  }
+
+  #last-updated-topics p {
+	margin: 0 0 10px;
+	padding: 0 0 0 10px;
+	color: #888;
+  }
+}
+
+/* Post & Article */
+.post {
+  article {
+	.article-head {
+	  position: relative;
+	  border-bottom: 1px solid #111;
+	  margin: 0 0 20px 0;
+
+	  .www_tags {
+		font-size: $base-font-size;
+	  }
+
+	  h1, h2 {
+		line-height: 1.2em;
+	  }
+
+	  h1 {
+		font-size: 30px;
+		text-transform: uppercase;
+	  }
+
+	  h2 {
+		color: #888888;
+		font-size: 18px;
+		line-height: 1em;
+		font-weight: normal;
+		font-style: oblique;
+		margin: 0;
+	  }
+
+	  .meta {
+		font-style: oblique;
+		margin: 20px 0 0 0;
+	  }
+
+	  p {
+		span {
+		  border-bottom: 1px dotted #aaa;
+		  cursor: help;
+
+		  &.difficulty {
+			border: none;
+		  }
+		}
+
+		a {
+		  text-decoration: none;
+		  color: inherit;
+
+		  span {
+			border-bottom: 1px dotted #aaa;
+			cursor: auto;
+		  }
+		}
+	  }
+	}
+
+	.article-body {
+	  h1, h2, h3, h4, h5, h6 {
+		text-transform: uppercase;
+	  }
+
+	  padding: 0 0 20px 0;
+
+	  p, ul, li, blockquote {
+		margin: 0 0 10px 0;
+
+		img {
+		  display: block;
+		  max-width: 95%;
+		  height: auto;
+		  margin: 20px auto 0 auto;
+		}
+
+		img + em {
+		  display: block;
+		  max-width: 95%;
+		  margin: 10px auto 20px auto;
+		  color: #999;
+		  padding: 5px 10px;
+		  font-size: 90%;
+		}
+	  }
+
+	  p {
+		text-align: justify;
+		&:first-of-type:first-letter {
+		  font-weight: bold;
+		  font-size: 50px;
+		  padding-left: 20px;
+		}
+	  }
+
+	  @media screen and (max-width: 640px) {
+		p, ul, li, blockquote {
+		  font-size: 1.3rem;
+		  line-height: 1.8rem;
+		}
+	  }
+
+	  .footnote-ref {
+		vertical-align: super;
+		font-size: 80%;
+		line-height: 0;
+		margin-left: 2px;
+	  }
+
+	  p:last-child,
+	  li:last-child,
+	  blockquote:last-child {
+		margin-bottom: 0;
+	  }
+
+	  p:empty {
+		margin: 0 0 0 5px;
+	  }
+
+	  ul {
+		margin-top: 10px;
+
+		li {
+		  list-style-type: square;
+		  margin: 0 0 5px 0;
+		}
+	  }
+
+	  table {
+		width: 80%;
+		margin: 20px auto;
+	  }
+	}
+
+	.footnote {
+	  margin: 50px 0 0 0;
+	  padding: 0 0 0 10px;
+
+	  ol > li {
+		list-style-type: decimal;
+		margin: 0 0 5px;
+
+		p {
+		  display: inline;
+		}
+	  }
+	}
+  }
+}
+
+#footnotediv {
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #ddd;
+  right: 50px;
+}
+
+#footnotediv p {
+  padding: 5px 0;
+  margin: 0;
+  font-size: 80%;
+  font-style: italic;
+  color: #333;
+}
+
+#footnotediv p:first-of-type {
+  padding-top: 0;
+}
+
+#footnotediv p:last-of-type {
+  padding-bottom: 0;
+}
+
+.bodyPage .post article .article-body .footnotes p {
+  display: inline;
+}
+
+.footnotes h5 {
+  font-size: 13px;
+  color: #777;
+  font-weight: bold;
+}
+
+.footnotes hr {
+  border-width: 0;
+}
+
+/* Pagination
+ *-------------------------------------------------------------- */
+
+.pagination {
+  margin: 20px 0;
+}
+
+.pagination ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.pagination ul li.current {
+  font-weight: bold;
+}
+
+/* Page CSS
+ *-------------------------------------------------------------- */
+.page {
+  .notfound {
+	h1 {
+	  font-size: 60px;
+	  color: #999;
+	}
+
+	h3 {
+	  font-size: 20px;
+	}
+  }
+}
+
+figcaption {
+  font-size: 11px;
+  font-style: italic;
+  color: #999999;
+}
+
+/* Footer
+*-------------------------------------------------------------- */
+footer {
+  border-top: 1px solid #555;
+  margin-top: 20px;
+  padding: 20px 0;
+  color: #999;
+
+  p {
+	font-size: 90%;
+	line-height: normal;
+  }
+}
