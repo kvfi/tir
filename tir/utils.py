@@ -30,17 +30,10 @@ def load_env(path='default'):
 def app_config():
     try:
         with open('tir.yml') as f:
-            config = yaml.load(f.read(), Loader=yaml.FullLoader)
-        print(config)
+            config = yaml.load(f.read().encode('utf-8'), Loader=yaml.FullLoader)
         return config
     except FileNotFoundError:
         warnings.warn('No configuration file was found.')
-
-
-def load_logging():
-    with open(os.getenv('LOG_CONF_FILE', pkg_resources.resource_filename('tir', 'logging.yml')), 'r') as stream:
-        config = yaml.load(stream, Loader=yaml.FullLoader)
-    return config
 
 
 def remove_list_meta(meta):
@@ -55,7 +48,7 @@ def remove_list_meta(meta):
 
 
 def is_windows():
-    return platform.system() == 'Windows'
+    return sys.platform.startswith("win") or (sys.platform == "cli" and os.name == "nt")
 
 
 def is_linux():

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{{ head.title }}</title>
+    <meta name="description" content="{{ head.description }}"/>
+    <link rel="icon" type="image/png" sizes="16
+    x16"
+          href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='dist/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='dist/images/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/app.css') }}" type="text/css" media="screen">
+</head>
+<body class="{{ css_class }}">
+<div class="container fw">
+    <div class="row">
+        <div class="column one-ninth">
+            <div class="aside">
+                <a class="logo" href="{{ url_for('index') }}"><img alt="ouafi.net"
+                                                                   src="{{ url_for('static', filename='images/gal.jpg') }}"/></a>
+                {% if 'slogan' in config %}
+                <p class="quote">{{ config.slogan }}</p>
+                {% endif %}
+                <ul class="menu">
+                    <li><a href="{{ url_for('index') }}">accueil</a></li>
+                    <li><a href="{{ url_for('post', slug='Bio') }}">bio</a></li>
+                    {% if 'github' in config %}
+                    <li><a href="{{ config['github'] }}">github</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="column {% if post.slug == 'index' %}half{% else %}two-fifth{% endif %}">
+            {% block content %}
+            {% endblock %}
+            {% block pagination %}
+            {% endblock %}
+            <footer>
+                <p>
+                    {{ config.footer }}
+                </p>
+            </footer>
+        </div>
+    </div>
+</div>
+</body>

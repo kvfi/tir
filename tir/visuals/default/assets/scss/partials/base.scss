@@ -1,0 +1,234 @@
+// Font weights
+$light: 100;
+$regular: 400;
+$bold: 600;
+
+// Base Font
+$base-font-family: Baskerville, Baskerville Old Face, Hoefler Text, Garamond, Times New Roman, serif;
+$base-font-weight: $regular;
+$base-font-size: 16px;
+$base-line-height: 21.8px;
+
+$sec-font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+$code-font-family: 'Courier New', monospace;
+
+$title-font-family: 'Garamond', 'Georgia', serif;
+
+$margin-left: 10px;
+
+// Links
+$primary-color: #000000;
+$secondary-color: #888888;
+$light-color: #dddddd;
+$link-color: rgba(38, 92, 131, .9);
+
+// Fixed Font
+$fixed-font-family: monospace;
+$fixed-font-size: 85%;
+$fixed-line-height: $base-line-height;
+
+// Headings
+$header-font-weight: $bold;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: $base-font-size $base-font-family;
+  color: $primary-color;
+  line-height: $base-line-height;
+}
+
+a {
+  color: $link-color;
+  text-decoration: underline;
+  font-style: italic;
+
+
+  &:hover {
+	border-bottom-style: solid;
+	transition: color .3s;
+  }
+}
+
+a.logo, a.logo:hover,
+a img, a img:hover {
+  border: 0;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+ol, ul {
+  list-style: inside square;
+}
+
+dl {
+  dt, dd {
+	display: list-item;
+	list-style-position: inside;
+  }
+
+  dt {
+	list-style-type: square;
+	margin-top: 10px;
+
+	&:first-child {
+	  margin-top: 0;
+	}
+  }
+
+  dd {
+	list-style-type: circle;
+	margin-left: 15px;
+  }
+}
+
+blockquote {
+  overflow: auto;
+  background-color: #f5f5f5;
+  padding: 4px 10px 4px 30px;
+  margin: 0 0 20px;
+  color: #444444;
+  display: block;
+}
+
+p, li {
+  margin: 0 0 0.8em;
+
+  span.big {
+	font-weight: bold;
+	text-transform: uppercase;
+  }
+
+  span:first-letter {
+	font-size: 20px;
+  }
+}
+
+li {
+  margin: 0;
+}
+
+p.small {
+  font-size: 90%;
+}
+
+strong, b {
+  font-weight: $bold;
+}
+
+em {
+  font-style: italic;
+}
+
+sup {
+  vertical-align: super;
+  font-size: 80%;
+  line-height: 0;
+}
+
+tt {
+  font-family: $code-font-family;
+}
+
+/* Headers */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 5px;
+  line-height: 150%;
+}
+
+h1 {
+  font-size: 200%;
+  line-height: 130%;
+}
+
+h2 {
+  font-size: 23px;
+}
+
+h3 {
+  font-size: 21px;
+}
+
+h4 {
+  font-size: 120%;
+}
+
+h5 {
+  font-size: 15px;
+}
+
+h6 {
+  font-size: 12px;
+}
+
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+  margin-top: 0;
+}
+
+form input[type="text"].title {
+  font-size: 20px;
+}
+
+form input[type="text"].micro {
+  font-size: 13px;
+  display: inline;
+  padding: 0 2px;
+}
+
+form .field {
+  margin: 10px 0;
+}
+
+form .field .subfield {
+  margin: 6px 0;
+  font-size: 13px;
+}
+
+form h5 {
+  font-size: 15px;
+}
+
+*:target {
+  animation: highlight 1s ease;
+}
+
+@keyframes highlight {
+  from {
+	background: yellow;
+  }
+  to {
+	background: white;
+  }
+}
+
+pre {
+  font-family: $code-font-family;
+
+  code {
+	font-size: 12px;
+	display: inline-block;
+	padding: 10px 20px;
+  }
+}
+
+hr.divider {
+  height: 1.5rem;
+  border: 0;
+}
+
+.container {
+  margin: 20px auto;
+  max-width: 960px;
+  width: 90%;
+}
+
+.container.fw {
+  max-width: 100%;
+  width: 100%;
+}
