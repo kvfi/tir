@@ -3,7 +3,7 @@ from os.path import relpath, join
 
 from setuptools import find_packages, setup
 
-version = "0.2.0"
+version = "0.3.0"
 setup(
     name='tir',
     version=version,
