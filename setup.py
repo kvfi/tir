@@ -1,9 +1,10 @@
 from os import walk
 from os.path import relpath, join
+from tir.version import version
 
 from setuptools import find_packages, setup
 
-version = "0.3.0"
+
 setup(
     name='tir',
     version=version,
