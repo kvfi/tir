@@ -24,7 +24,6 @@ setup(
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
-    setup_requires=['wheel'],
     install_requires=[
         'jinja2',
         'markdown',
