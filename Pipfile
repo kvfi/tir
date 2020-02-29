@@ -4,11 +4,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+sphinx = ">=2.4.3 "
+setuptools = ">=45.2.0"
+twine = ">=3.1.1"
+wheel = ">=0.34.2"
 
 [packages]
-jinja2 = "*"
-markdown = "*"
-pyyaml = "*"
+jinja2 = ">=2.11.1"
+markdown = ">=3.2.1"
+pyyaml = ">=5.3"
 
 [requires]
 python_version = "3.6"
