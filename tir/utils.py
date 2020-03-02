@@ -6,7 +6,6 @@ from datetime import datetime
 from os import listdir
 from os.path import dirname, join
 
-import pkg_resources
 import yaml
 
 import sys
@@ -15,16 +14,16 @@ import sys
 def load_env(path='default'):
     directory = dirname(__file__)
     if path == 'default':
-        fname = join(directory, '../.env')
+        name = join(directory, '../.env')
     else:
-        fname = join(directory, 'path')
-    with open(fname) as f:
+        name = join(directory, 'path')
+    with open(name) as f:
         env = f.readlines()
-    envars = {}
+    env_vars = {}
     for var in env:
         n = var.split('=')
-        envars.update({n[0]: n[1].rstrip()})
-    return envars
+        env_vars.update({n[0]: n[1].rstrip()})
+    return env_vars
 
 
 def app_config():
@@ -112,14 +111,3 @@ def copytree(src, dst, symlinks=False, ignore=None):
         else:
             if not os.path.exists(d) or os.stat(s).st_mtime - os.stat(d).st_mtime > 1:
                 shutil.copy2(s, d)
-
-
-def remove_list_meta(meta):
-    """ Extract first and single element of list from meta dic
-    :rtype: dict
-    """
-    if isinstance(meta, dict):
-        for mk, mv in meta.items():
-            if isinstance(mv, list) and len(mv) == 1:
-                meta[mk] = mv[0]
-    return meta
