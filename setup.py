@@ -4,7 +4,6 @@ from tir.version import version
 
 from setuptools import find_packages, setup
 
-
 setup(
     name='tir',
     version=version,
@@ -29,6 +28,7 @@ setup(
         'markdown',
         'pyyaml'
     ],
+    extra_requires={'test': ['pytest']},
     package_data={
         'tir': [relpath(join(root, name), 'tir')
                 for root, _, names in walk(join('tir', 'data')) and walk(join('tir', 'visuals'))
