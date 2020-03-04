@@ -7,7 +7,7 @@ language: python
 python: "3.6.3"
 
 install:
-  - pip install --upgrade pipenv pip
+  - pip install --upgrade pipenv pip codecov
   - pipenv install --dev
 
 jobs:
