@@ -3,10 +3,6 @@ os:
 
 language: python
 
-python:
-  - "3.6"
-  - "3.7"
-
 install:
   - pip install --upgrade pipenv pip codecov twine
   - pipenv install --dev
