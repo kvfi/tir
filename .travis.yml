@@ -17,8 +17,10 @@ jobs:
       script:
         - python setup.py sdist bdist_wheel
         - twine check dist/*
-    - stage: deploy_test
+    - stage: Test package deployment
       if: branch = develop
+      script:
+        - twine upload --repository-url https://test.pypi.org/legacy/ dist/*
     - stage: deploy
       if: branch = master
       script:
