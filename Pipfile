@@ -9,11 +9,13 @@ sphinx = "*"
 setuptools = "*"
 twine = "*"
 wheel = "*"
+pytest-cov = "*"
 
 [packages]
 jinja2 = "*"
 markdown = "*"
 pyyaml = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.6"
