@@ -13,15 +13,15 @@ python:
   - "nightly"  # nightly build
 
 install:
-  - pip install --upgrade pipenv pip codecov
+  - pip install --upgrade pipenv pip codecov twine
   - pipenv install --dev
 
 jobs:
   include:
     - stage: test
       script:
-        - pytest
-        - codecov
+        - pipenv run pytest
+        - pipenv run codecov
     - stage: packaging
       script:
         - python setup.py sdist bdist_wheel
