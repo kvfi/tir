@@ -1,3 +1,5 @@
+import locale
+import logging
 import os
 import shutil
 import subprocess
@@ -6,13 +8,13 @@ import pkg_resources
 from jinja2 import Environment, FileSystemLoader
 
 from tir.posts import Post
+from tir.settings import REQUIRED_PATHS
 from tir.tools import is_init, _
 from tir.utils import mktree, is_windows, url_for, format_date
 
-import logging
-
 logger = logging.getLogger(__name__)
 
+ #locale.setlocale(locale.LC_TIME, "fr_FR")
 
 class Tir(object):
 
@@ -29,23 +31,17 @@ class Tir(object):
 
     def init(self):
         if is_init():
-            print('A Tir project seems to be already initialized. Nothing to do.')
             return False
         print('Initializing Tir project...')
-        skeleton_dirs = ['content/posts', 'content/pages']
-        skeleton_files = ['package.json', 'tir.yml', 'Gruntfile.js']
+        skeleton_dirs = REQUIRED_PATHS
+        skeleton_files = ['tir.yml']
         for skeleton_dir in skeleton_dirs:
             mktree(skeleton_dir)
         for skeleton_file in skeleton_files:
-            shutil.copyfile(pkg_resources.resource_filename('tir', skeleton_file),
+            shutil.copyfile(pkg_resources.resource_filename('tir', 'data/{}'.format(skeleton_file)),
                             '{}/{}'.format(os.getcwd(), skeleton_file))
-        shutil.copytree(pkg_resources.resource_filename('tir', 'assets'),
-                        '{}/{}'.format(os.getcwd(), 'assets'))
-        print('Installing NodeJS deps...')
-        try:
-            subprocess.run(['yarn', 'install'])
-        except Exception:
-            print('An error has occurred. Are you sure "yarn" is installed on your system?')
+        shutil.copytree(pkg_resources.resource_filename('tir', 'visuals'),
+                        '{}/{}'.format(os.getcwd(), 'visuals'))
         print('Tir project was successfully installed.')
         return True
 
@@ -94,8 +90,7 @@ class Tir(object):
             with open(self.build_dir + '/index.html', 'w', encoding='utf-8') as fh:
                 p = Post()
                 x = p.read('index', dir_path=Post.MISC_DIR)
-                head = {'title': 'ouafi.net',
-                        'description': 'Dans un monde fou, toute forme d\'écriture est un remède psychiatrique'}
+                head = {'title': 'ouafi.net', 'description': 'Dans un monde fou, toute forme d\'écriture est un remède psychiatrique'}
                 fh.write(index_tpl.render(
                     content={'intro': x},
                     post=p,
@@ -103,10 +98,7 @@ class Tir(object):
                 ))
 
             print('Building static files...')
-            if not is_windows():
-                subprocess.run(['yarn', 'build'])
-            else:
-                subprocess.Popen(['yarn', 'build'], shell=True)
+
             print('Build was successful.')
             return True
 

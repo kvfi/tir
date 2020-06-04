@@ -1,8 +1,19 @@
-from os import walk
-from os.path import relpath, join
-from tir.version import version
+import os
+from os.path import relpath
 
 from setuptools import find_packages, setup
+
+from tir.version import version
+
+
+def package_files(directories):
+    paths = []
+    for directory in directories:
+        for (path, directories, filenames) in os.walk(directory):
+            for filename in filenames:
+                paths.append(relpath(os.path.join(path, filename), 'tir'))
+    return paths
+
 
 setup(
     name='tir',
@@ -30,9 +41,7 @@ setup(
     ],
     extra_requires={'test': ['pytest']},
     package_data={
-        'tir': [relpath(join(root, name), 'tir')
-                for root, _, names in walk(join('tir', 'data')) and walk(join('tir', 'visuals'))
-                for name in names]
+        'tir': package_files(['tir/data', 'tir/visuals'])
     },
     entry_points={
         'console_scripts': [

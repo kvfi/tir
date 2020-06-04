@@ -14,6 +14,8 @@ import os
 import shutil
 from datetime import datetime
 
+from tir.settings import REQUIRED_PATHS
+
 log = logging.getLogger(__name__)
 
 
@@ -53,5 +55,10 @@ def _(text):
     return text
 
 
-def is_init():
-    return os.path.exists('tir.yml')
+def is_init() -> bool:
+    paths = all([os.path.exists(el) for el in REQUIRED_PATHS])
+    if paths:
+        return True
+    else:
+        log.info('A Tir project already exists at this location.')
+        return False
