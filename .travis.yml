@@ -5,12 +5,13 @@ language: python
 
 install:
   - pip install --upgrade pipenv pip codecov twine
-  - pipenv install --dev
+  - pip install -r requirements.txt
 
 jobs:
   include:
     - stage: test
     - stage: packaging
+      if: branch = develop
       script:
         - python setup.py sdist bdist_wheel
         - twine check dist/*
