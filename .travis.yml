@@ -9,10 +9,6 @@ install:
 
 jobs:
   include:
-    - stage: test
-      script:
-        - pytest --cov=tir tests/
-        - codecov
     - stage: packaging
       script:
         - python setup.py sdist bdist_wheel
