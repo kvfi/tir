@@ -37,7 +37,8 @@ setup(
     install_requires=[
         'jinja2',
         'markdown',
-        'pyyaml'
+        'pyyaml',
+        'scss'
     ],
     extra_requires={'test': ['pytest']},
     package_data={
