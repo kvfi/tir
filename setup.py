@@ -9,8 +9,8 @@ from tir.version import version
 def package_files(directories):
     paths = []
     for directory in directories:
-        for (path, directories, filenames) in os.walk(directory):
-            for filename in filenames:
+        for (path, directories, file_names) in os.walk(directory):
+            for filename in file_names:
                 paths.append(relpath(os.path.join(path, filename), 'tir'))
     return paths
 
@@ -42,7 +42,7 @@ setup(
     ],
     extra_requires={'test': ['pytest']},
     package_data={
-        'tir': package_files(['tir/data', 'tir/visuals'])
+        'tir': package_files(['tir/data'])
     },
     entry_points={
         'console_scripts': [

@@ -90,7 +90,8 @@ class Tir(object):
             with open(self.build_dir + '/index.html', 'w', encoding='utf-8') as fh:
                 p = Post()
                 x = p.read('index', dir_path=Post.MISC_DIR)
-                head = {'title': 'ouafi.net', 'description': 'Dans un monde fou, toute forme d\'écriture est un remède psychiatrique'}
+                head = {'title': 'ouafi.net', 'description': 'Dans un monde fou, toute forme d\'écriture est un '
+                                                             'remède psychiatrique'}
                 fh.write(index_tpl.render(
                     content={'intro': x},
                     post=p,
