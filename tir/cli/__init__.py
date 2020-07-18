@@ -18,6 +18,6 @@ def main():
     tir = Tir(config)
 
     if args.command == 'init':
-        tir.init()
+        init()
     if args.command == 'build':
         tir.build()

@@ -38,7 +38,8 @@ setup(
         'jinja2',
         'markdown',
         'pyyaml',
-        'scss'
+        'libsass',
+        'babel'
     ],
     extra_requires={'test': ['pytest']},
     package_data={

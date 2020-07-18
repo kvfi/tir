@@ -1,7 +1,7 @@
 import logging
 import os
 
-from yaml import Dumper, FullLoader, load, dump
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ def load_settings(override: dict = None) -> dict:
         with open(_DEFAULT_CONF_FILE, 'r', encoding='UTF-8') as file:
             content = file.read()
             logger.debug(_DEFAULT_CONF_FILE, content)
-            cfg = load(content, Loader=FullLoader)
+            cfg = yaml.safe_load(content)
 
     merged_cfg = {**_DEFAULT_SETTINGS, **cfg}
 
@@ -29,6 +29,6 @@ def load_settings(override: dict = None) -> dict:
         merged_cfg = {**override, **merged_cfg}
 
     with open(_DEFAULT_CONF_FILE, 'w+', encoding='UTF-8') as f:
-        f.write(dump(merged_cfg, Dumper=Dumper))
+        f.write(yaml.dump(merged_cfg, Dumper=yaml.Dumper))
 
     return merged_cfg

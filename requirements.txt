@@ -4,11 +4,11 @@
 #
 #    pip-compile
 #
-importlib-metadata==1.6.1  # via markdown
+babel==2.8.0              # via tir (setup.py)
 jinja2==2.11.2            # via tir (setup.py)
+libsass==0.20.0           # via tir (setup.py)
 markdown==3.2.2           # via tir (setup.py)
 markupsafe==1.1.1         # via jinja2
-pyparsing==2.4.7          # via scss
+pytz==2020.1              # via babel
 pyyaml==5.3.1             # via tir (setup.py)
-scss==0.8.73              # via tir (setup.py)
-zipp==3.1.0               # via importlib-metadata
+six==1.15.0               # via libsass

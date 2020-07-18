@@ -13,6 +13,8 @@ import logging
 import os
 from datetime import datetime
 
+from babel.dates import format_date
+
 from tir.settings import REQUIRED_PATHS
 
 log = logging.getLogger(__name__)
@@ -27,17 +29,18 @@ def url_for(route, slug=None, filename=''):
         return '{}/{}'.format('static', filename)
 
 
-def format_date(date, date_format="%d/%m/%Y", suffix=False):
-    date = datetime.strptime(date, '%Y-%m-%d')
-    return date.strftime(date_format)
-
-
 def mktree(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
 
 def _(text):
+    translations = {
+        'created': 'créé',
+        'updated': 'mis à jour'
+    }
+    if text in translations:
+        return translations[text]
     return text
 
 
