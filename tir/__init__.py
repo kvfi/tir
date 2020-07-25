@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 
 from tir.posts import Post
 from tir.settings import REQUIRED_PATHS
-from tir.tools import is_init, _
+from tir.tools import is_init, _, minify_file
 from tir.utils import mktree, url_for, format_date
 
 logger = logging.getLogger(__name__)
@@ -70,7 +70,19 @@ class Tir(object):
             env.globals['_'] = _
             env.globals['format_date'] = format_date
             env.globals['config'] = self.conf
-            print('Building...')
+
+            print('Building static files...')
+            scss_dir = os.path.join(assets_target_dir, 'scss')
+            css_dir = os.path.join(assets_target_dir, 'css')
+            print('Scanning {}'.format(os.path.join(scss_dir)))
+            mktree(css_dir)
+            compiled_scss = sass.compile(filename=os.path.join(scss_dir, 'main.scss'))
+            stylesheet_path = os.path.join(css_dir, 'stylesheet.css')
+            with open(stylesheet_path, 'w+') as f:
+                f.write(compiled_scss)
+            minified_stylesheet_path = minify_file(stylesheet_path)
+
+            print('Building content...')
             slugs = Post.get_slugs()
             for slug in slugs:
                 slug = slug.replace('.md', '')
@@ -80,7 +92,7 @@ class Tir(object):
                 mktree(self.build_dir)
                 with open(target_path, 'w', encoding='utf-8') as fh:
                     head = {'title': x.meta['title'],
-                            'description': x.meta['subtitle']}
+                            'description': x.meta['subtitle'], 'stylesheet_file_name': minified_stylesheet_path}
                     fh.write(post_tpl.render(
                         post=p,
                         head=head,
@@ -93,21 +105,14 @@ class Tir(object):
                 p = Post()
                 x = p.read('index', dir_path=Post.MISC_DIR)
                 head = {'title': 'ouafi.net', 'description': 'Dans un monde fou, toute forme d\'écriture est un '
-                                                             'remède psychiatrique'}
+                                                             'remède psychiatrique',
+                        'stylesheet_file_name': minified_stylesheet_path}
                 fh.write(index_tpl.render(
                     content={'intro': x},
                     post=p,
                     head=head
                 ))
 
-            print('Building static files...')
-            scss_dir = os.path.join(assets_target_dir, 'scss')
-            css_dir = os.path.join(assets_target_dir, 'css')
-            print('Scanning {}'.format(os.path.join(scss_dir)))
-            mktree(css_dir)
-            compiled_scss = sass.compile(filename=os.path.join(scss_dir, 'main.scss'))
-            with open(os.path.join(css_dir, 'stylesheet.css'), 'w+') as f:
-                f.write(compiled_scss)
             print('Build was successful.')
             return True
 

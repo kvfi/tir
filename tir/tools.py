@@ -10,12 +10,13 @@ todos:
 """
 
 import logging
+import ntpath
 import os
-from datetime import datetime
 
-from babel.dates import format_date
+from csscompressor import compress
 
 from tir.settings import REQUIRED_PATHS
+from tir.utils import n_bit_hash
 
 log = logging.getLogger(__name__)
 
@@ -51,3 +52,19 @@ def is_init() -> bool:
     else:
         log.info('A Tir project already exists at this location.')
         return False
+
+
+def minify_file(path: str) -> str:
+    with open(path, 'r') as f:
+        content = f.read()
+
+    css = compress(content)
+    h = str(n_bit_hash(content, 8))
+
+    minified_file_path = '%s.%s.css' % (path.replace('.css', ''), h)
+    with open(minified_file_path, 'w+') as f:
+        f.write(css)
+
+    os.remove(path)
+
+    return ntpath.basename(minified_file_path)
