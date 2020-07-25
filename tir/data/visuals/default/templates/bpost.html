@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block aside_description %}
+{% endblock %}
+{% block content %}
+    <div class="post">
+        <article>
+            {% block post_head %}
+                <div class="article-head">
+                    <h1>{{ post.meta.title }}</h1>
+                    <h2>{{ post.meta.subtitle }}</h2>
+                    {% block post_head_meta %}
+                        <div class="meta">
+                            <p>{{ _('created') }}: {{ format_date(post.meta.published) }}; {{ _('modified') }}: {{ format_date(post.meta.updated) }}; {{ _('status') }}: {{ _(post.meta.status) }}; {{ _('confidence') }}: {{ _(post.meta.confidence) }};
+                                {{ _('difficulty') }}: {{ _(post.meta.difficulty) }} <span class="difficulty"><i
+                                        class="{{ post.meta.difficulty }}"></i></span></p>
+                        </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+            <div class="article-body">
+                {{ post.meta.intro }}
+                <div class="row">
+                    {% if post.meta.toc == 'true' %}
+                        <div class="column one-sixth">
+                            {{ post.meta.contents|safe }}
+                        </div>
+                    {% endif %}
+                        {{ post.content|safe }}
+                </div>
+            </div>
+        </article>
+    </div>
+{% endblock %}

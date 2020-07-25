@@ -1,8 +1,19 @@
-from os import walk
-from os.path import relpath, join
-from tir.version import version
+import os
+from os.path import relpath
 
 from setuptools import find_packages, setup
+
+from tir.version import version
+
+
+def package_files(directories):
+    paths = []
+    for directory in directories:
+        for (path, directories, file_names) in os.walk(directory):
+            for filename in file_names:
+                paths.append(relpath(os.path.join(path, filename), 'tir'))
+    return paths
+
 
 setup(
     name='tir',
@@ -26,13 +37,14 @@ setup(
     install_requires=[
         'jinja2',
         'markdown',
-        'pyyaml'
+        'pyyaml',
+        'libsass',
+        'csscompressor',
+        'babel'
     ],
     extra_requires={'test': ['pytest']},
     package_data={
-        'tir': [relpath(join(root, name), 'tir')
-                for root, _, names in walk(join('tir', 'data')) and walk(join('tir', 'visuals'))
-                for name in names]
+        'tir': package_files(['tir/data'])
     },
     entry_points={
         'console_scripts': [

@@ -1,3 +1,4 @@
+import hashlib
 import os
 import platform
 import shutil
@@ -6,6 +7,11 @@ from datetime import datetime
 from os import listdir
 from os.path import dirname, join
 
+<<<<<<< HEAD
+=======
+from babel.dates import format_date as fd
+
+>>>>>>> 0.5.0
 import yaml
 
 import sys
@@ -29,7 +35,11 @@ def load_env(path='default'):
 def app_config():
     try:
         with open('tir.yml') as f:
+<<<<<<< HEAD
             config = yaml.load(f.read().encode('utf-8'), Loader=yaml.FullLoader)
+=======
+            config = yaml.safe_load(f.read().encode('utf-8'))
+>>>>>>> 0.5.0
         return config
     except FileNotFoundError:
         warnings.warn('No configuration file was found.')
@@ -91,13 +101,8 @@ def url_for(route, slug=None, filename=''):
 
 
 def format_date(value):
-    date = datetime.strptime(value, "%Y-%m-%d")
-    day = date.day
-    if 4 <= day <= 20 or 24 <= day <= 30:
-        suffix = "th"
-    else:
-        suffix = ["st", "nd", "rd"][day % 10 - 1]
-    return date.strftime('%B %e<sup>' + suffix + '</sup> %Y')
+    d = datetime.strptime(value, '%Y-%m-%d')
+    return fd(d, locale='fr')
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -111,3 +116,10 @@ def copytree(src, dst, symlinks=False, ignore=None):
         else:
             if not os.path.exists(d) or os.stat(s).st_mtime - os.stat(d).st_mtime > 1:
                 shutil.copy2(s, d)
+<<<<<<< HEAD
+=======
+
+
+def n_bit_hash(string: str, n: int) -> int:
+    return int(hashlib.blake2b(string.encode('utf-8')).hexdigest(), 16) % 10 ** n
+>>>>>>> 0.5.0

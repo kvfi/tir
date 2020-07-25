@@ -1,0 +1,20 @@
+span.difficulty {
+  margin-right: 10px;
+  i {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-top: -3px;
+    &.trivial {
+      background-color: rgba(0, 153, 153, 0.8);
+    }
+    &.technical {
+      background-color: rgba(77, 195, 255, 0.8);
+    }
+    &.academic {
+      background-color: rgba(204, 153, 255, 0.8);
+    }
+  }
+}
