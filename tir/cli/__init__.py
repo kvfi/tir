@@ -1,14 +1,14 @@
 import argparse
 import logging
 
-from tir import Tir
+from tir import Tir, init
 from tir.settings import load_settings
 
 log = logging.getLogger(__name__)
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Tir CLI', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(description='Tir CLI')
     parser.add_argument('command', nargs='?', help='command to execute',
                         choices=['init', 'build'])
 
