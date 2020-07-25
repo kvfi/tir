@@ -39,6 +39,7 @@ setup(
         'markdown',
         'pyyaml',
         'libsass',
+        'csscompressor',
         'babel'
     ],
     extra_requires={'test': ['pytest']},
