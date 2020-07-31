@@ -4,14 +4,14 @@ os:
 language: python
 
 install:
-  - pip install --upgrade pip codecov twine
-  - pip install .[test]
+  - pip install --upgrade pip codecov twine pytest
+  - pip install -r requirement-test.txt
 
 jobs:
   include:
     - stage: test
       script:
-        - pytest
+        - pytest tests/
     - stage: packaging
       if: branch = develop
       script:
