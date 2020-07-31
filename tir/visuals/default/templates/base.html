@@ -5,18 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{{ head.title }}</title>
     <meta name="description" content="{{ head.description }}"/>
-    <link rel="icon" type="image/png" sizes="16
-    x16"
-          href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='dist/manifest.json') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ url_for('static', filename='dist/images/ms-icon-144x144.png') }}">
     <meta name="theme-color" content="#ffffff">
-<<<<<<< HEAD:tir/visuals/default/templates/base.html
-    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/app.css') }}" type="text/css" media="screen">
-=======
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/' + head.stylesheet_file_name) }}" type="text/css" media="screen">
->>>>>>> 0.5.0:tir/data/visuals/default/templates/base.html
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/' + head.stylesheet_file_name) }}" type="text/css"
+          media="screen">
 </head>
 <body class="{{ css_class }}">
 <div class="container fw">
@@ -36,11 +31,7 @@
                     {% endif %}
                 </ul>
             </div>
-<<<<<<< HEAD:tir/visuals/default/templates/base.html
         </div>
-=======
-        </div>l
->>>>>>> 0.5.0:tir/data/visuals/default/templates/base.html
         <div class="column {% if post.slug == 'index' %}half{% else %}two-fifth{% endif %}">
             {% block content %}
             {% endblock %}
