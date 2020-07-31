@@ -5,7 +5,7 @@ language: python
 
 install:
   - pip install --upgrade pip codecov twine pytest
-  - pip install -r requirement-test.txt
+  - pip install -r requirements-test.txt
 
 jobs:
   include:
