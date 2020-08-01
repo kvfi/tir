@@ -1,7 +1,7 @@
 import argparse
 import logging
 
-from tir import Tir, init
+from tir import Tir
 from tir.settings import load_settings
 
 log = logging.getLogger(__name__)
@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 def main():
     parser = argparse.ArgumentParser(description='Tir CLI')
     parser.add_argument('command', nargs='?', help='command to execute',
-                        choices=['init', 'build'])
+                        choices=['init', 'build', 'watch'])
 
     args = parser.parse_args()
 
@@ -21,3 +21,5 @@ def main():
         tir.init()
     if args.command == 'build':
         tir.build()
+    if args.command == 'watch':
+        tir.watch()

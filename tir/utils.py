@@ -65,7 +65,8 @@ def scan_dir(directory=None, extensions=None):
     :type extensions: list
     """
     matches = []
-    extensions = ['.' + ext for ext in extensions]
+    if extensions is not None:
+        extensions = ['.' + ext for ext in extensions]
     files = listdir(directory)
     for file in files:
         if extensions is not None:

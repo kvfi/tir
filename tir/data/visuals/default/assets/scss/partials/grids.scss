@@ -16,12 +16,14 @@
 	margin-left: $column-margin;
 
 	&:first-child {
-	  margin-left: 0;
+		margin-left: 0;
 	}
-  }
-
-  .offset-one-fifth {
-	margin-left: calc((100% / 5) - #{$column-margin})
+	&.offset-one-fifth {
+	  	margin-left: calc((100% / 5) - #{$column-margin})
+  	}
+  	&.offset-one-sixth {
+	  	margin-left: calc((100% / 6) - #{$column-margin})
+  	}
   }
 
   .full {
