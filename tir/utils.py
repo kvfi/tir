@@ -17,7 +17,7 @@ def load_env(path='default'):
     if path == 'default':
         name = join(directory, '../.env')
     else:
-        name = join(directory, 'path')
+        name = path
     with open(name) as f:
         env = f.readlines()
     env_vars = {}

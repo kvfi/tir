@@ -46,8 +46,7 @@ def _(text):
 
 
 def is_init() -> bool:
-    paths = all([os.path.exists(el) for el in REQUIRED_PATHS])
-    if paths:
+    if all([os.path.exists(el) for el in REQUIRED_PATHS]):
         return True
     else:
         log.info('A Tir project already exists at this location.')

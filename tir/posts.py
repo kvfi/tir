@@ -8,6 +8,8 @@ from markdown.extensions.wikilinks import WikiLinkExtension
 
 from tir.utils import remove_list_meta
 
+_EXCLUDED_FILES = ['index.md']
+
 
 class Post(object):
     d = os.getcwd()
@@ -59,6 +61,7 @@ class Post(object):
             posts = listdir(Post.POSTS_DIR)[:limit]
         else:
             posts = listdir(Post.POSTS_DIR)
+        posts.remove('index.md')
         return posts
 
     @staticmethod

@@ -41,10 +41,19 @@ class Tir(object):
         for skeleton_dir in skeleton_dirs:
             mktree(skeleton_dir)
         for skeleton_file in skeleton_files:
-            shutil.copyfile(pkg_resources.resource_filename('tir', 'data/{}'.format(skeleton_file)),
-                            '{}/{}'.format(os.getcwd(), skeleton_file))
-        shutil.copytree(pkg_resources.resource_filename('tir', 'visuals'),
-                        '{}/{}'.format(os.getcwd(), 'visuals'))
+            shutil.copyfile(
+                pkg_resources.resource_filename(
+                    'tir',
+                    'data/{}'.format(skeleton_file)
+                ), '{}/{}'.format(os.getcwd(), skeleton_file)
+            )
+
+        # copy quickstart data
+        shutil.copytree(
+            pkg_resources.resource_filename('tir', 'data'),
+            os.path.join(os.getcwd()),
+            dirs_exist_ok=True
+        )
         print('Tir project was successfully installed.')
         return True
 
@@ -106,7 +115,7 @@ class Tir(object):
             print('Building index page...')
             with open(self.build_dir + '/index.html', 'w', encoding='utf-8') as fh:
                 p = Post()
-                x = p.read('index', dir_path=Post.MISC_DIR)
+                x = p.read('index')
                 head = {'title': 'ouafi.net', 'description': 'Dans un monde fou, toute forme d\'écriture est un '
                                                              'remède psychiatrique',
                         'stylesheet_file_name': minified_stylesheet_path}
