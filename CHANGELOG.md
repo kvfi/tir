@@ -1,6 +1,15 @@
 Changelog
 =========
 
+0.5.3 (2020-08-04)
+------------------
+- Fixed project initialization
+- Refactored template loader
+
+0.5.2 (2020-08-03)
+------------------
+- Added conftest.py to import pytest fixture
+- Added tests and fixtures
 
 0.5.0 (2020-07-25)
 ------------------
