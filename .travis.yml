@@ -4,7 +4,7 @@ os:
 language: python
 
 install:
-  - pip install --upgrade pip codecov twine pytest
+  - pip install --upgrade pip codecov twine
   - pip install -r requirements-test.txt
 
 jobs:
@@ -12,13 +12,7 @@ jobs:
     - stage: test
       script:
         - pytest tests/
-    - stage: packaging
-      if: branch = develop
-      script:
-        - python setup.py sdist bdist_wheel
-        - twine check dist/*
-    - stage: deploy_test
-      if: branch = develop
+        - bash <(curl -s https://codecov.io/bash)
     - stage: deploy
       if: branch = master
       script:
