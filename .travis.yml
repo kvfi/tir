@@ -12,6 +12,7 @@ jobs:
     - stage: test
       script:
         - pytest tests/
+        - codecov
         - bash <(curl -s https://codecov.io/bash)
     - stage: deploy
       if: branch = master
