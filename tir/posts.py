@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 from os import getenv, listdir
 from os.path import join, normpath
 
@@ -20,60 +19,46 @@ class Post(object):
     LINKS_DIR = normpath(join(CONTENT_DIR, 'links/'))
     MISC_DIR = normpath(join(CONTENT_DIR, 'misc/'))
 
-    def __init__(self):
+    def __init__(self, path: str = None):
+        self.path = path
+        self.file_base_name = os.path.basename(os.path.splitext(self.path)[0])
         self.meta = None
+        self.raw = None
         self.content = None
-        self.yearly = False
+        self.parse()
 
-    def read(self, el, dir_path=POSTS_DIR, ext='.md'):
+    def parse(self):
         try:
-            with open('{}'.format(join(dir_path, el + ext)), encoding='utf8') as f:
-                md = markdown.Markdown(
-                    extensions=['markdown.extensions.meta', 'markdown.extensions.toc', 'markdown.extensions.footnotes',
-                                'markdown.extensions.def_list', 'markdown.extensions.tables',
-                                WikiLinkExtension(base_url='https://en.wikipedia.org/wiki/', end_url='')])
-                html = md.convert(f.read())
-                self.content = html
-                if hasattr(md, 'Meta') and md.Meta:
-                    meta = md.Meta
-                    meta = remove_list_meta(meta)
-                    if 'online' in meta and meta['online'] == 'false':
-                        pass
-                    if hasattr(md, 'toc'):
-                        meta['contents'] = md.toc
-                    self.meta = meta
-                # Special handling
-                # In case we process a journal entry (retrospective) we want the date to be the title
-                if dir_path == Post.RETROS_DIR:
-                    d = datetime.strptime(self.meta['date'], "%d-%m-%Y")
-                    if self.yearly:
-                        title = d.year
-                    else:
-                        title = '{}/{}/{}'.format(d.day, d.month, d.year)
-                    self.meta['title'] = 'Retrospective {}'.format(title)
-                return self
+            with open(self.path, 'r') as f:
+                self.raw = f.read()
+            if not self.raw:
+                return
+            md = markdown.Markdown(
+                extensions=[
+                    'markdown.extensions.meta',
+                    'markdown.extensions.toc',
+                    'markdown.extensions.footnotes',
+                    'markdown.extensions.def_list',
+                    'markdown.extensions.tables',
+                    WikiLinkExtension(base_url='https://en.wikipedia.org/wiki/', end_url='')
+                ]
+            )
+            self.content = md.convert(self.raw)
+            if hasattr(md, 'Meta') and md.Meta:
+                meta = md.Meta
+                meta = remove_list_meta(meta)
+                if 'online' in meta and meta['online'] == 'false':
+                    pass
+                if hasattr(md, 'toc'):
+                    meta['contents'] = md.toc
+                self.meta = meta
+            else:
+                print('{} is missing meta. Ignoring...'.format(self.path))
+                pass
         except FileNotFoundError as fnf:
             raise fnf
 
     @staticmethod
-    def get_slugs(limit=None):
-        if limit is not None:
-            posts = listdir(Post.POSTS_DIR)[:limit]
-        else:
-            posts = listdir(Post.POSTS_DIR)
-        posts.remove('index.md')
-        return posts
-
-    @staticmethod
-    def get_intro():
-        post = Post()
-        return post.read(Post.MISC_DIR + '/intro.md')
-
-    @staticmethod
-    def read_all(slugs):
-        posts = []
-        for slug in slugs:
-            post = Post()
-            p = post.read(Post.POSTS_DIR, slug.replace('.md', ''))
-            posts.append(p)
+    def get_slugs():
+        posts = listdir(Post.POSTS_DIR)
         return posts

@@ -83,6 +83,16 @@ def mktree(path):
         os.makedirs(path)
 
 
+def _(text):
+    translations = {
+        'created': 'créé',
+        'updated': 'mis à jour'
+    }
+    if text in translations:
+        return translations[text]
+    return text
+
+
 def url_for(route, slug=None, filename=''):
     if route == 'index':
         return '/'
@@ -93,21 +103,11 @@ def url_for(route, slug=None, filename=''):
 
 
 def format_date(value):
-    d = datetime.strptime(value, '%Y-%m-%d')
-    return fd(d, locale='fr')
-
-
-def copytree(src, dst, symlinks=False, ignore=None):
-    if not os.path.exists(dst):
-        os.makedirs(dst)
-    for item in os.listdir(src):
-        s = os.path.join(src, item)
-        d = os.path.join(dst, item)
-        if os.path.isdir(s):
-            copytree(s, d, symlinks, ignore)
-        else:
-            if not os.path.exists(d) or os.stat(s).st_mtime - os.stat(d).st_mtime > 1:
-                shutil.copy2(s, d)
+    try:
+        d = datetime.strptime(value, '%Y-%m-%d')
+        return fd(d, locale='fr')
+    except (ValueError, TypeError):
+        return value
 
 
 def n_bit_hash(string: str, n: int) -> int:

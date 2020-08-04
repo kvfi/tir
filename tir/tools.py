@@ -21,30 +21,6 @@ from tir.utils import n_bit_hash
 log = logging.getLogger(__name__)
 
 
-def url_for(route, slug=None, filename=''):
-    if route == 'index':
-        return '/'
-    if route == 'post':
-        return slug + '.html'
-    elif route == 'static':
-        return '{}/{}'.format('static', filename)
-
-
-def mktree(path):
-    if not os.path.exists(path):
-        os.makedirs(path)
-
-
-def _(text):
-    translations = {
-        'created': 'créé',
-        'updated': 'mis à jour'
-    }
-    if text in translations:
-        return translations[text]
-    return text
-
-
 def is_init() -> bool:
     if all([os.path.exists(el) for el in REQUIRED_PATHS]):
         return True

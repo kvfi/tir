@@ -5,13 +5,13 @@ import time
 
 import pkg_resources
 import sass
-from jinja2 import Environment, FileSystemLoader
 
 from tir.files import rm_dir_files, hash_content
 from tir.posts import Post
 from tir.settings import REQUIRED_PATHS
-from tir.tools import is_init, _, minify_file
-from tir.utils import mktree, url_for, format_date
+from tir.templates import TemplateLoader
+from tir.tools import is_init, minify_file
+from tir.utils import mktree
 
 logger = logging.getLogger(__name__)
 
@@ -69,16 +69,8 @@ class Tir(object):
             print('Replace assets files')
             assets_src_dir = os.path.join(tpl_visuals_dir, 'assets')
             assets_target_dir = os.path.join(os.getcwd(), self.build_dir, 'static')
-            env = Environment(
-                loader=FileSystemLoader(os.path.join(tpl_visuals_dir, 'templates')),
-                autoescape=True
-            )
-            post_tpl = env.get_template('post.html')
-            index_tpl = env.get_template('home.html')
-            env.globals['url_for'] = url_for
-            env.globals['_'] = _
-            env.globals['format_date'] = format_date
-            env.globals['config'] = self.conf
+
+            tpl_loader = TemplateLoader(layout_directory=tpl_visuals_dir)
 
             print('Building static files...')
             css_dir = os.path.join(assets_target_dir, 'css')
@@ -88,42 +80,24 @@ class Tir(object):
             with open(stylesheet_path, 'w+') as f:
                 f.write(compiled_scss)
             minified_stylesheet_path = minify_file(stylesheet_path)
+
             shutil.copytree(
                 os.path.join(tpl_visuals_dir, 'assets', 'images'),
-                os.path.join(self.build_dir, 'static', 'images'),
-                dirs_exist_ok=True
+                os.path.join(self.build_dir, 'static', 'images')
             )
 
             print('Building content...')
-            slugs = Post.get_slugs()
-            for slug in slugs:
-                slug = slug.replace('.md', '')
-                p = Post()
-                x = p.read(slug)
-                target_path = '%s/%s.html' % (self.build_dir, slug)
+            for file in os.scandir(self.content_dir):
+                p = Post(file.path)
+                target_path = '%s/%s.html' % (self.build_dir, p.file_base_name)
                 mktree(self.build_dir)
                 with open(target_path, 'w', encoding='utf-8') as fh:
-                    head = {'title': x.meta['title'],
-                            'description': x.meta['subtitle'], 'stylesheet_file_name': minified_stylesheet_path}
-                    fh.write(post_tpl.render(
+                    head = {'stylesheet_file_name': minified_stylesheet_path}
+                    fh.write(tpl_loader.env.get_template('index.html' if p.file_base_name == 'index' else 'post.html').render(
                         post=p,
-                        head=head,
+                        head=head
                     ))
                 print('Compiling {}...'.format(target_path))
-
-            # Building index page
-            print('Building index page...')
-            with open(self.build_dir + '/index.html', 'w', encoding='utf-8') as fh:
-                p = Post()
-                x = p.read('index')
-                head = {'title': 'ouafi.net', 'description': 'Dans un monde fou, toute forme d\'écriture est un '
-                                                             'remède psychiatrique',
-                        'stylesheet_file_name': minified_stylesheet_path}
-                fh.write(index_tpl.render(
-                    content={'intro': x},
-                    post=p,
-                    head=head
-                ))
 
             print('Build was successful.')
             return True
