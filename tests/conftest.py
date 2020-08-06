@@ -1,1 +1,1 @@
-from .fixtures import sample_env_file_path
+from .fixtures import sample_env_file_path, load_dummy_file_content
