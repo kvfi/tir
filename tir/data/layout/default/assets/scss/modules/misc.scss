@@ -15,14 +15,6 @@ table {
         font-size: 18px;
     }
 
-    td:first-child {
-        padding-left: 10px;
-    }
-
-    td:last-child {
-        padding-right: 10px;
-    }
-
     thead {
         padding: 5px 0;
 
@@ -43,6 +35,14 @@ table {
         td {
             padding: 5px 0;
         }
+
+        td:first-child {
+            padding-left: 10px;
+        }
+
+        td:last-child {
+            padding-right: 10px;
+        }
     }
 }
 
@@ -62,21 +62,18 @@ table {
     span {
         color: #333;
         font-style: italic;
+        margin-right: 30px;
     }
 
     .markers {
         font-size: 12px;
     }
-
-    span {
-        margin-right: 30px;
-    }
 }
 
 .ongoing-exp {
     margin: 0 0 20px 0;
-    background-color: #FFF8DC;
-    border: 1px solid #E0DCBF;
+    background-color: #fff8dc;
+    border: 1px solid #e0dcbf;
     font-size: 14px;
     padding: 5px 10px;
 
@@ -96,7 +93,7 @@ table {
 
 .tooltip {
     position: relative;
-    position-z-index: 200;
+    z-index: 200;
 
     .tooltip-content {
         z-index: 100;
@@ -110,8 +107,8 @@ table {
         background-color: white;
         border: 1px solid #ddd;
 
-        &:after,
-        &:before {
+        &::after,
+        &::before {
             bottom: 100%;
             left: 50%;
             border: solid transparent;
@@ -122,16 +119,16 @@ table {
             pointer-events: none;
         }
 
-        &:after {
+        &::after {
             border-color: rgba(136, 183, 213, 0);
-            border-bottom-color: #FFFFFF;
+            border-bottom-color: #fff;
             border-width: 4px;
             margin-left: -4px;
         }
 
-        &:before {
+        &::before {
             border-color: rgba(194, 225, 245, 0);
-            border-bottom-color: #DDDDDD;
+            border-bottom-color: #ddd;
             border-width: 6px;
             margin-left: -6px;
         }

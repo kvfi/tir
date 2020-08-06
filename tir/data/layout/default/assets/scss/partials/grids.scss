@@ -1,6 +1,6 @@
 @import "../variables";
 
-.row:after {
+.row::after {
     content: "";
     display: table;
     clear: both;

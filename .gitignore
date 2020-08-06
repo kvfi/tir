@@ -128,4 +128,4 @@ dmypy.json
 .idea/
 
 # NodeJS
-*/node_modules
+node_modules/

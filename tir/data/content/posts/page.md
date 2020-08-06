@@ -9,4 +9,4 @@ confidence: high
 difficulty: 1
 ---
 
-sample page
+This is a sample page.

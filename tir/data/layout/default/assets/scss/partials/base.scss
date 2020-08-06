@@ -4,12 +4,12 @@ $regular: 400;
 $bold: 600;
 
 // Base Font
-$base-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+$base-font-family: "Palatino Linotype", "Book Antiqua", palatino, serif;
 $base-font-weight: $regular;
 $base-font-size: 16px;
 $base-line-height: 130%;
 
-$sec-font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+$sec-font-family: arial, "Helvetica Neue", helvetica, sans-serif;
 $code-font-family: 'Courier New', monospace;
 
 $title-font-family: 'Garamond', 'Georgia', serif;
@@ -17,10 +17,10 @@ $title-font-family: 'Garamond', 'Georgia', serif;
 $margin-left: 10px;
 
 // Links
-$primary-color: #000000;
-$secondary-color: #888888;
-$light-color: #dddddd;
-$link-color: rgba(38, 92, 131, .9);
+$primary-color: #000;
+$secondary-color: #888;
+$light-color: #ddd;
+$link-color: rgba(38, 92, 131, 0.9);
 
 // Fixed Font
 $fixed-font-family: monospace;
@@ -45,16 +45,10 @@ a {
     text-decoration: underline;
     font-style: italic;
 
-
     &:hover {
         border-bottom-style: solid;
-        transition: color .3s;
+        transition: color 0.3s;
     }
-}
-
-a.logo, a.logo:hover,
-a img, a img:hover {
-    border: 0;
 }
 
 img {
@@ -62,12 +56,21 @@ img {
     max-height: 100%;
 }
 
-ol, ul {
+a.logo,
+a.logo:hover,
+a img,
+a img:hover {
+    border: 0;
+}
+
+ol,
+ul {
     list-style: inside square;
 }
 
 dl {
-    dt, dd {
+    dt,
+    dd {
         display: list-item;
         list-style-position: inside;
     }
@@ -89,13 +92,14 @@ dl {
 
 blockquote {
     background-color: #f5f5f5;
-    border-left: 3px solid #888888;
+    border-left: 3px solid #888;
     padding: 25px 10px 4px 30px;
-    color: #444444;
+    color: #444;
     display: block;
 }
 
-p, li {
+p,
+li {
     margin: 0 0 0.8em;
 
     span.big {
@@ -103,7 +107,7 @@ p, li {
         text-transform: uppercase;
     }
 
-    span:first-letter {
+    span::first-letter {
         font-size: 20px;
     }
 }
@@ -116,7 +120,8 @@ p.small {
     font-size: 90%;
 }
 
-strong, b {
+strong,
+b {
     font-weight: $bold;
 }
 
@@ -136,7 +141,12 @@ tt {
 
 /* Headers */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 20px 0 5px;
     line-height: 150%;
 }
@@ -166,7 +176,16 @@ h6 {
     font-size: 12px;
 }
 
-h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+form h5 {
+    font-size: 15px;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
     margin-top: 0;
 }
 
@@ -189,10 +208,6 @@ form .field .subfield {
     font-size: 13px;
 }
 
-form h5 {
-    font-size: 15px;
-}
-
 *:target {
     animation: highlight 1s ease;
 }
@@ -201,6 +216,7 @@ form h5 {
     from {
         background: yellow;
     }
+
     to {
         background: white;
     }

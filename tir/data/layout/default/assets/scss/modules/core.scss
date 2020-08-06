@@ -59,14 +59,15 @@
     article {
         .article-head {
             position: relative;
-            border-bottom: 1px solid #888888;
+            border-bottom: 1px solid #888;
             margin: 0 0 20px 0;
 
             .www_tags {
                 font-size: $base-font-size;
             }
 
-            h1, h2 {
+            h1,
+            h2 {
                 line-height: 1.2em;
             }
 
@@ -76,7 +77,7 @@
             }
 
             h2 {
-                color: #888888;
+                color: #888;
                 font-size: 18px;
                 line-height: 1.3em;
                 font-weight: normal;
@@ -112,13 +113,21 @@
         }
 
         .article-body {
-            h1, h2, h3, h4, h5, h6 {
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
                 text-transform: uppercase;
             }
 
             padding: 0 0 20px 0;
 
-            p, ul, li, blockquote {
+            p,
+            ul,
+            li,
+            blockquote {
                 margin: 0 0 10px 0;
 
                 img {
@@ -141,7 +150,7 @@
             p {
                 text-align: justify;
 
-                &:first-of-type:first-letter {
+                &:first-of-type::first-letter {
                     font-weight: bold;
                     font-size: 50px;
                     padding-left: 20px;
@@ -149,7 +158,10 @@
             }
 
             @media screen and (max-width: 640px) {
-                p, ul, li, blockquote {
+                p,
+                ul,
+                li,
+                blockquote {
                     font-size: 1.3rem;
                     line-height: 1.8rem;
                 }
@@ -274,7 +286,7 @@
 figcaption {
     font-size: 11px;
     font-style: italic;
-    color: #999999;
+    color: #999;
 }
 
 /* Footer
