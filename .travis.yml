@@ -2,6 +2,7 @@ os:
   - linux
 
 language: python
+cache: pip
 
 install:
   - pip install --upgrade pip twine
