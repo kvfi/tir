@@ -1,7 +1,7 @@
 # Tir contributors
 This list of contributors is sorted alphabetically
 
-* [kvfi](/kvfi)
+* [kvfi](https://github.com/kvfi/t)
     - Author and maintainer
-* [ZouhirSarrar](/ZouhirSarrar)
+* [Zouhir Sarrar](https://github.com/ZouhirSarrar)
     - Testing and QA
