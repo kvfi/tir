@@ -1,6 +1,6 @@
 type: page
 title: Sample page
-slug: page
+slug: Page
 subtitle: A sample subtitle
 published:
 updated:

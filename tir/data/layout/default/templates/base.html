@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{{ head.title }}</title>
-    <meta name="description" content="{{ head.description }}"/>
+    <title>{{ post.meta['title'] if post.meta['title'] else config['meta']['title'] }}</title>
+    <meta name="description" content="{{ post.meta['subtitle'] if post.meta['subtitle'] else config['meta']['subtitle'] }}"/>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/' + head.stylesheet_file_name) }}" type="text/css"
@@ -20,11 +20,9 @@
                 <p class="quote">{{ config.slogan }}</p>
                 {% endif %}
                 <ul class="menu">
-                    <li><a href="{{ url_for('index') }}">accueil</a></li>
-                    <li><a href="{{ url_for('post', slug='Bio') }}">bio</a></li>
-                    {% if 'github' in config %}
-                    <li><a href="{{ config['github'] }}">github</a></li>
-                    {% endif %}
+                    {% for item in config.nav %}
+                        <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -35,7 +33,7 @@
             {% endblock %}
             <footer>
                 <p>
-                    {{ config.footer }}
+                    {{ config['meta']['footer'] }}
                 </p>
             </footer>
         </div>

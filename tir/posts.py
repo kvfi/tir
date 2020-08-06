@@ -44,7 +44,7 @@ class Post(object):
                 ]
             )
             self.content = md.convert(self.raw)
-            if hasattr(md, 'Meta') and md.Meta:
+            if hasattr(md, 'Meta') and md.Meta and self.file_base_name != 'index':
                 meta = md.Meta
                 meta = remove_list_meta(meta)
                 if 'online' in meta and meta['online'] == 'false':
@@ -52,9 +52,6 @@ class Post(object):
                 if hasattr(md, 'toc'):
                     meta['contents'] = md.toc
                 self.meta = meta
-            else:
-                print('{} is missing meta. Ignoring...'.format(self.path))
-                pass
         except FileNotFoundError as fnf:
             raise fnf
 

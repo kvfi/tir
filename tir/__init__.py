@@ -70,7 +70,7 @@ class Tir(object):
             assets_src_dir = os.path.join(tpl_visuals_dir, 'assets')
             assets_target_dir = os.path.join(os.getcwd(), self.build_dir, 'static')
 
-            tpl_loader = TemplateLoader(layout_directory=tpl_visuals_dir)
+            tpl_loader = TemplateLoader(layout_directory=tpl_visuals_dir, config=self.conf)
 
             print('Building static files...')
             css_dir = os.path.join(assets_target_dir, 'css')
@@ -93,7 +93,8 @@ class Tir(object):
                 mktree(self.build_dir)
                 with open(target_path, 'w', encoding='utf-8') as fh:
                     head = {'stylesheet_file_name': minified_stylesheet_path}
-                    fh.write(tpl_loader.env.get_template('index.html' if p.file_base_name == 'index' else 'post.html').render(
+                    fh.write(tpl_loader.env.get_template(
+                        'index.html' if p.file_base_name == 'index' else 'post.html').render(
                         post=p,
                         head=head
                     ))

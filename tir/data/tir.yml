@@ -1,2 +1,10 @@
-title: My website
-description: My description
+meta:
+  title: My website
+  description: My description
+  footer: Footer content
+
+nav:
+  - title: Index
+    link: /index.html
+  - title: Page
+    link: /Page.html
