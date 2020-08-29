@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{{ post.meta['title'] if post.meta['title'] else config['meta']['title'] }}</title>
-    <meta name="description" content="{{ post.meta['subtitle'] if post.meta['subtitle'] else config['meta']['subtitle'] }}"/>
+    <title>{{ post.meta['title'] if post.meta['title'] else config['meta']['title'] }} - {{ config['meta']['title'] }}</title>
+    <meta name="description" content="{{ post.meta['subtitle'] if post.meta['subtitle'] else config['meta']['description'] }}"/>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/' + head.stylesheet_file_name) }}" type="text/css"
