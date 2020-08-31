@@ -91,16 +91,14 @@ dl {
 }
 
 blockquote {
-    background-color: #f5f5f5;
-    border-left: 3px solid #888;
-    padding: 25px 10px 4px 30px;
-    color: #444;
+    padding-left: 20px;
     display: block;
+    font-style: italic;
 }
 
 p,
 li {
-    margin: 0 0 0.8em;
+    line-height: 1.5em;
 
     span.big {
         font-weight: bold;
@@ -112,8 +110,13 @@ li {
     }
 }
 
+p + p {
+    text-indent: 2.5em;
+}
+
 li {
-    margin: 0;
+    list-style-type: circle;
+    margin: 0 0 0.8em;
 }
 
 p.small {
@@ -229,6 +232,7 @@ pre {
         font-size: 12px;
         display: inline-block;
         padding: 10px 20px;
+        width: 100%;
     }
 }
 

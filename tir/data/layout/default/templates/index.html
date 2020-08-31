@@ -3,9 +3,30 @@
 {% block heading %}
 {% endblock %}
 {% block content %}
-    <div class="index-intro">
-        {{ post.content|safe }}
-    </div>
+<div class="index-intro">
+	{{ post.content|safe }}
+	<hr class="divider" />
+	{% if 'home-posts' in config and config['home-posts'].keys()|length > 0 %}
+	{% set home_posts = config['home-posts'] %}
+	{% set ks = home_posts.keys() | list %}
+	{% set row_number = (ks|length / 2)|round(0, 'ceil')|int %}
+	{% for rn in range(row_number) %}
+	<div class="home-articles">
+		<div class="row">
+			<div class="column half">
+				<h3>{{ ks[rn] }}</h3>
+				<ul>
+					{% for item in home_posts[ks[rn]] %}
+					{% set p = read_post(item) %}
+					<li><a href="{{ item }}.html">{{ p.meta['title'] }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+	{% endif %}
+</div>
 {% endblock %}
 {% block pagination %}
     {{ pagination }}

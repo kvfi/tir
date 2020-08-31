@@ -109,6 +109,10 @@
     .eigth-tenth {
         width: calc(10% - #{$column-margin});
     }
+    
+    .one-twelfth {
+        width: calc((100% / 15) - #{$column-margin});
+    }
 }
 
 @media screen and (max-width: 640px) {

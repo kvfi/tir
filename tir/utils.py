@@ -1,7 +1,6 @@
 import hashlib
 import os
 import platform
-import shutil
 import sys
 import warnings
 from datetime import datetime
@@ -86,7 +85,11 @@ def mktree(path):
 def _(text):
     translations = {
         'created': 'créé',
-        'updated': 'mis à jour'
+        'updated': 'mis à jour',
+        'modified': 'modifié',
+        'status': 'statut',
+        'confidence': 'confiance',
+        'difficulty': 'difficulté'
     }
     if text in translations:
         return translations[text]

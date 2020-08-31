@@ -13,9 +13,9 @@
 <body class="{{ css_class }}">
 <div class="container fw">
     <div class="row">
-        <div class="column one-ninth offset-one-sixth">
+        <div class="column one-twelfth offset-one-sixth">
             <div class="aside">
-                <a class="logo" href="{{ url_for('index') }}"><img alt="ouafi.net" src="{{ url_for('static', filename='images/logo.png') }}" /></a>
+                <h1><a class="logo" href="{{ url_for('index') }}">{% if logo %}<img alt="ouafi.net" src="{{ url_for('static', filename='images/logo.png') }}" />{% else %}{{ config['meta']['title'] }}{% endif %}</a></h1>
                 {% if 'slogan' in config %}
                 <p class="quote">{{ config.slogan }}</p>
                 {% endif %}

@@ -2,6 +2,7 @@ import os
 
 from jinja2 import Environment, FileSystemLoader
 
+from tir.posts import Post
 from tir.utils import format_date, url_for, _
 
 
@@ -20,3 +21,4 @@ class TemplateLoader:
         self.env.globals['_'] = _
         self.env.globals['format_date'] = format_date
         self.env.globals['config'] = self.conf
+        self.env.globals['read_post'] = Post.read_post

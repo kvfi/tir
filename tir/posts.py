@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 from os import getenv, listdir
 from os.path import join, normpath
@@ -5,6 +7,7 @@ from os.path import join, normpath
 import markdown
 from markdown.extensions.wikilinks import WikiLinkExtension
 
+from tir.md import BoxExtension
 from tir.utils import remove_list_meta
 
 _EXCLUDED_FILES = ['index.md']
@@ -40,9 +43,11 @@ class Post(object):
                     'markdown.extensions.footnotes',
                     'markdown.extensions.def_list',
                     'markdown.extensions.tables',
-                    WikiLinkExtension(base_url='https://en.wikipedia.org/wiki/', end_url='')
+                    WikiLinkExtension(base_url='https://en.wikipedia.org/wiki/', end_url=''),
+                    BoxExtension()
                 ]
             )
+
             self.content = md.convert(self.raw)
             if hasattr(md, 'Meta') and md.Meta and self.file_base_name != 'index':
                 meta = md.Meta
@@ -56,6 +61,12 @@ class Post(object):
             raise fnf
 
     @staticmethod
+    def read_post(name: str) -> Post:
+        path = '%s/%s.md' % (Post.POSTS_DIR, name)
+        return Post(path)
+
+    @staticmethod
     def get_slugs():
         posts = listdir(Post.POSTS_DIR)
         return posts
+

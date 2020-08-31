@@ -11,7 +11,7 @@
                     <h2>{{ post.meta.subtitle }}</h2>
                     {% block post_head_meta %}
                         <div class="meta">
-                            <p>{{ _('created') }}: {{ format_date(post.meta.published) }}; {{ _('modified') }}: {{ format_date(post.meta.updated) }}; {{ _('status') }}: {{ _(post.meta.status) }}; {{ _('confidence') }}: {{ _(post.meta.confidence) }};
+                            <p>{{ _('created') }}: {{ format_date(post.meta.published) }} <span class="mspacer">&bull;</span> {{ _('modified') }}: {{ format_date(post.meta.updated) }} <span class="mspacer">&bull;</span>{{ _('status') }}: {{ _(post.meta.status) }} <span class="mspacer">&bull;</span> {{ _('confidence') }}: {{ _(post.meta.confidence) }} <span class="mspacer">&bull;</span>
                                 {{ _('difficulty') }}: {{ _(post.meta.difficulty) }} <span class="difficulty"><i
                                         class="{{ post.meta.difficulty }}"></i></span></p>
                         </div>
@@ -22,7 +22,7 @@
                 {{ post.meta.intro }}
                 <div class="row">
                     {% if post.meta.toc == 'true' %}
-                        <div class="column one-sixth">
+                        <div class="column one-third">
                             {{ post.meta.contents|safe }}
                         </div>
                     {% endif %}
