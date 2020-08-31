@@ -1,6 +1,16 @@
 Changelog
 =========
 
+0.5.4 (2020-08-31)
+------------------
+- Added codacy configuration
+- Fixed some code style issues
+- Added codebase for testing and coverage
+- Added configurable navigation
+- Fixed html head meta
+- Added visual improvements
+
+
 0.5.3 (2020-08-04)
 ------------------
 - Fixed project initialization
