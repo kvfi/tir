@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import os
 from os import getenv, listdir
 from os.path import join, normpath
@@ -61,7 +59,7 @@ class Post(object):
             raise fnf
 
     @staticmethod
-    def read_post(name: str) -> Post:
+    def read_post(name: str) -> 'Post':
         path = '%s/%s.md' % (Post.POSTS_DIR, name)
         return Post(path)
 
@@ -69,4 +67,3 @@ class Post(object):
     def get_slugs():
         posts = listdir(Post.POSTS_DIR)
         return posts
-
