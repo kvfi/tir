@@ -16,7 +16,7 @@ def package_files(directories):
 
 
 setup(
-    name='tir',
+    name='youness',
     version=version,
     author='kvfi',
     author_email='mail@mail.net',
