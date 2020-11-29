@@ -18,7 +18,7 @@ _DEFAULT_SETTINGS = {
 def load_settings(override: dict = None) -> dict:
     cfg = {}
     if os.path.isfile(_DEFAULT_CONF_FILE):
-        with open(_DEFAULT_CONF_FILE, 'r') as file:
+        with open(_DEFAULT_CONF_FILE, 'r', encoding='utf-8') as file:
             content = file.read()
             logger.debug(_DEFAULT_CONF_FILE, content)
             cfg = yaml.safe_load(content)
@@ -30,7 +30,7 @@ def load_settings(override: dict = None) -> dict:
 
     # TODO: create backup file in case something bad happens
 
-    with open(_DEFAULT_CONF_FILE, 'w+') as f:
+    with open(_DEFAULT_CONF_FILE, 'w+', encoding='utf-8') as f:
         f.write(yaml.safe_dump(merged_cfg, allow_unicode=True))
 
     return merged_cfg

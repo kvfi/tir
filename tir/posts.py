@@ -30,7 +30,7 @@ class Post(object):
 
     def parse(self):
         try:
-            with open(self.path, 'r') as f:
+            with open(self.path, 'r', encoding='utf8') as f:
                 self.raw = f.read()
             if not self.raw:
                 return

@@ -77,7 +77,7 @@ class Tir(object):
             mktree(css_dir)
             compiled_scss = sass.compile(filename=os.path.join(assets_src_dir, 'scss', 'main.scss'))
             stylesheet_path = os.path.join(css_dir, 'stylesheet.css')
-            with open(stylesheet_path, 'w+') as f:
+            with open(stylesheet_path, 'w+', encoding='utf-8') as f:
                 f.write(compiled_scss)
             minified_stylesheet_path = minify_file(stylesheet_path)
 

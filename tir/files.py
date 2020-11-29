@@ -18,7 +18,7 @@ def hash_content(path: str) -> List[int]:
         print('This is a special file. Not handling...')
 
     for file in files:
-        with open(file, 'r') as f:
+        with open(file, 'r', encoding='utf-8') as f:
             content_hashes.append(f.read().__hash__())
 
     return content_hashes

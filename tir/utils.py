@@ -17,7 +17,7 @@ def load_env(path='default'):
         name = join(directory, '../.env')
     else:
         name = path
-    with open(name) as f:
+    with open(name, encoding='utf-8') as f:
         env = f.readlines()
     env_vars = {}
     for var in env:
@@ -28,7 +28,7 @@ def load_env(path='default'):
 
 def app_config():
     try:
-        with open('tir.yml') as f:
+        with open('tir.yml', encoding='utf-8') as f:
             config = yaml.safe_load(f.read().encode('utf-8'))
             return config
     except FileNotFoundError:

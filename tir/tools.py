@@ -30,14 +30,14 @@ def is_init() -> bool:
 
 
 def minify_file(path: str) -> str:
-    with open(path, 'r') as f:
+    with open(path, 'r', encoding='utf-8') as f:
         content = f.read()
 
     css = compress(content)
     h = str(n_bit_hash(content, 8))
 
     minified_file_path = '%s.%s.css' % (path.replace('.css', ''), h)
-    with open(minified_file_path, 'w+') as f:
+    with open(minified_file_path, 'w+', encoding='utf-8') as f:
         f.write(css)
 
     os.remove(path)
