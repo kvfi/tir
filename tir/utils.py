@@ -6,6 +6,7 @@ import warnings
 from datetime import datetime
 from os import listdir
 from os.path import dirname, join
+from urllib.parse import urlparse
 
 import yaml
 from babel.dates import format_date as fd
@@ -115,3 +116,16 @@ def format_date(value):
 
 def n_bit_hash(string: str, n: int) -> int:
     return int(hashlib.blake2b(string.encode('utf-8')).hexdigest(), 16) % 10 ** n
+
+
+def get_domain(url: str, include_ext=True) -> str:
+    domain = urlparse(url).netloc
+    if domain.startswith('wwww.'):
+        domain.strip('www.')
+    domain_l = domain.split('.')
+    if len(domain_l) > 2:
+        domain_l.pop(0)
+        if not include_ext:
+            domain_l.pop(1)
+        domain = '.'.join(domain_l)
+    return domain

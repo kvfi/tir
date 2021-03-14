@@ -1,9 +1,18 @@
 import os
 from os.path import relpath
-
 from setuptools import find_packages, setup
+from typing import List
 
 from tir.version import version
+
+
+def get_requirements() -> List[str]:
+    install_requires = []
+    requirement_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'requirements.txt')
+    if os.path.isfile(requirement_file):
+        with open(requirement_file) as f:
+            install_requires = f.read().splitlines()
+    return install_requires
 
 
 def package_files(directories):
@@ -34,14 +43,7 @@ setup(
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
-    install_requires=[
-        'jinja2',
-        'markdown',
-        'pyyaml',
-        'libsass',
-        'csscompressor',
-        'babel'
-    ],
+    install_requires=get_requirements(),
     extra_requires={'test': ['pytest']},
     package_data={
         'tir': package_files(['tir/data'])

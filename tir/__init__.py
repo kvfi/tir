@@ -1,14 +1,14 @@
 import logging
 import os
-import shutil
-import time
-
 import pkg_resources
 import sass
+import shutil
+import time
 
 from tir.files import rm_dir_files, hash_content
 from tir.posts import Post
 from tir.settings import REQUIRED_PATHS
+from tir.settings import load_settings
 from tir.templates import TemplateLoader
 from tir.tools import is_init, minify_file
 from tir.utils import mktree
@@ -18,13 +18,13 @@ logger = logging.getLogger(__name__)
 
 class Tir(object):
 
-    def __init__(self, conf):
+    def __init__(self):
         """Tir def
 
         Performs some checks on the environment before doing anything else.
         """
 
-        self.conf = conf
+        self.conf = load_settings()
 
         self.theme = self.conf.get('visuals').get('theme') or 'default'
         self.build_dir = self.conf['build_dir']
@@ -65,7 +65,7 @@ class Tir(object):
             if os.path.exists(self.build_dir) and not path:
                 shutil.rmtree(self.build_dir)
             tpl_visuals_dir = os.path.join(os.getcwd(), 'layout', self.theme)
-            print('Selected template: %s', tpl_visuals_dir)
+            print('Selected template:', tpl_visuals_dir)
             print('Replace assets files')
             assets_src_dir = os.path.join(tpl_visuals_dir, 'assets')
             assets_target_dir = os.path.join(os.getcwd(), self.build_dir, 'static')
@@ -84,6 +84,11 @@ class Tir(object):
             shutil.copytree(
                 os.path.join(tpl_visuals_dir, 'assets', 'images'),
                 os.path.join(self.build_dir, 'static', 'images')
+            )
+
+            shutil.copytree(
+                os.path.join(tpl_visuals_dir, 'assets', 'webfonts'),
+                os.path.join(self.build_dir, 'static', 'webfonts')
             )
 
             print('Building content...')

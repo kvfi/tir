@@ -5,7 +5,7 @@ from os.path import join, normpath
 import markdown
 from markdown.extensions.wikilinks import WikiLinkExtension
 
-from tir.md import BoxExtension
+from tir.parsers.markdown.links import CustomInlineLinksExtension
 from tir.utils import remove_list_meta
 
 _EXCLUDED_FILES = ['index.md']
@@ -41,13 +41,14 @@ class Post(object):
                     'markdown.extensions.footnotes',
                     'markdown.extensions.def_list',
                     'markdown.extensions.tables',
+                    'markdown.extensions.sane_lists',
                     WikiLinkExtension(base_url='https://en.wikipedia.org/wiki/', end_url=''),
-                    BoxExtension()
+                    CustomInlineLinksExtension()
                 ]
             )
 
             self.content = md.convert(self.raw)
-            if hasattr(md, 'Meta') and md.Meta and self.file_base_name != 'index':
+            if hasattr(md, 'Meta') and md.Meta:
                 meta = md.Meta
                 meta = remove_list_meta(meta)
                 if 'online' in meta and meta['online'] == 'false':
@@ -58,8 +59,7 @@ class Post(object):
         except FileNotFoundError as fnf:
             raise fnf
 
-    @staticmethod
-    def read_post(name: str) -> 'Post':
+    def read_post(self, name: str) -> 'Post':
         path = '%s/%s.md' % (Post.POSTS_DIR, name)
         return Post(path)
 
