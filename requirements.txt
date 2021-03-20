@@ -6,7 +6,7 @@
 #
 babel==2.8.0              # via tir (setup.py)
 csscompressor==0.9.5      # via tir (setup.py)
-jinja2==2.11.2            # via tir (setup.py)
+jinja2==2.11.3            # via tir (setup.py)
 libsass==0.20.0           # via tir (setup.py)
 markdown==3.2.2           # via tir (setup.py)
 markupsafe==1.1.1         # via jinja2
