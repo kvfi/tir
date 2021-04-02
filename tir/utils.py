@@ -120,12 +120,7 @@ def n_bit_hash(string: str, n: int) -> int:
 
 def get_domain(url: str, include_ext=True) -> str:
     domain = urlparse(url).netloc
-    if domain.startswith('wwww.'):
-        domain.strip('www.')
     domain_l = domain.split('.')
-    if len(domain_l) > 2:
-        domain_l.pop(0)
-        if not include_ext:
-            domain_l.pop(1)
-        domain = '.'.join(domain_l)
+    if len(domain_l) >= 2:
+        domain = domain_l[-2]
     return domain

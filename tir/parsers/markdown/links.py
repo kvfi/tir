@@ -24,7 +24,12 @@ class CustomLinkInlineProcessor(LinkInlineProcessor):
 
         icons = ['wikipedia']
         site_name = get_domain(href, include_ext=False)
-        el.set('class', 'icon ' + site_name) if site_name in icons else None
+
+        if site_name in icons:
+            el.set('class', 'icon ' + site_name)
+
+        if site_name in ['ouafi', '']:
+            el.set('class', 'icon internal')
 
         if title is not None:
             el.set("title", title)

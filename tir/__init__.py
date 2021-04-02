@@ -16,6 +16,32 @@ from tir.utils import mktree
 logger = logging.getLogger(__name__)
 
 
+def init():
+    if is_init():
+        return False
+    print('Initializing Tir project...')
+    skeleton_dirs = REQUIRED_PATHS
+    skeleton_files = ['tir.yml']
+    for skeleton_dir in skeleton_dirs:
+        mktree(skeleton_dir)
+    for skeleton_file in skeleton_files:
+        shutil.copyfile(
+            pkg_resources.resource_filename(
+                'tir',
+                'data/{}'.format(skeleton_file)
+            ), '{}/{}'.format(os.getcwd(), skeleton_file)
+        )
+
+    # copy quickstart data
+    shutil.copytree(
+        pkg_resources.resource_filename('tir', 'data'),
+        os.path.join(os.getcwd()),
+        dirs_exist_ok=True
+    )
+    print('Tir project was successfully installed.')
+    return True
+
+
 class Tir(object):
 
     def __init__(self):
@@ -28,34 +54,11 @@ class Tir(object):
 
         self.theme = self.conf.get('visuals').get('theme') or 'default'
         self.build_dir = self.conf['build_dir']
+        self.file_ext = '.{}'.format(self.conf['file_extension']) if 'file_extension' in self.conf and self.conf[
+            'file_extension'] else ''
         self.working_dir = os.getcwd()
         self.content_dir = os.path.join(self.working_dir, 'content', 'posts')
         self.oc = []
-
-    def init(self):
-        if is_init():
-            return False
-        print('Initializing Tir project...')
-        skeleton_dirs = REQUIRED_PATHS
-        skeleton_files = ['tir.yml']
-        for skeleton_dir in skeleton_dirs:
-            mktree(skeleton_dir)
-        for skeleton_file in skeleton_files:
-            shutil.copyfile(
-                pkg_resources.resource_filename(
-                    'tir',
-                    'data/{}'.format(skeleton_file)
-                ), '{}/{}'.format(os.getcwd(), skeleton_file)
-            )
-
-        # copy quickstart data
-        shutil.copytree(
-            pkg_resources.resource_filename('tir', 'data'),
-            os.path.join(os.getcwd()),
-            dirs_exist_ok=True
-        )
-        print('Tir project was successfully installed.')
-        return True
 
     def build(self, path: str = None):
         if not is_init():
@@ -94,7 +97,7 @@ class Tir(object):
             print('Building content...')
             for file in os.scandir(self.content_dir):
                 p = Post(file.path)
-                target_path = '%s/%s.html' % (self.build_dir, p.file_base_name)
+                target_path = '%s/%s%s' % (self.build_dir, p.file_base_name, self.file_ext)
                 mktree(self.build_dir)
                 with open(target_path, 'w', encoding='utf-8') as fh:
                     head = {'stylesheet_file_name': minified_stylesheet_path}
