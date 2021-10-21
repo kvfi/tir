@@ -4,7 +4,7 @@
 #
 #    pip-compile
 #
-babel==2.8.0              # via tir (setup.py)
+babel==2.9.1              # via tir (setup.py)
 csscompressor==0.9.5      # via tir (setup.py)
 jinja2==2.11.2            # via tir (setup.py)
 libsass==0.20.0           # via tir (setup.py)
