@@ -1,9 +1,10 @@
 import logging
 import os
-import pkg_resources
-import sass
 import shutil
 import time
+
+import pkg_resources
+import sass
 
 from tir.files import rm_dir_files, hash_content
 from tir.posts import Post
@@ -53,11 +54,15 @@ class Tir(object):
         self.conf = load_settings()
 
         self.theme = self.conf.get('visuals').get('theme') or 'default'
+        self.lang = self.conf.get('lang')
         self.build_dir = self.conf['build_dir']
         self.file_ext = '.{}'.format(self.conf['file_extension']) if 'file_extension' in self.conf and self.conf[
             'file_extension'] else ''
         self.working_dir = os.getcwd()
-        self.content_dir = os.path.join(self.working_dir, 'content', 'posts')
+        self.content_dir = os.path.join(self.working_dir, 'content')
+        self.posts_dir = os.path.join(self.content_dir, 'posts')
+        self.notes_dir = os.path.join(self.content_dir, 'notes')
+
         self.oc = []
 
     def build(self, path: str = None):
@@ -89,24 +94,42 @@ class Tir(object):
                 os.path.join(self.build_dir, 'static', 'images')
             )
 
-            shutil.copytree(
-                os.path.join(tpl_visuals_dir, 'assets', 'webfonts'),
-                os.path.join(self.build_dir, 'static', 'webfonts')
-            )
-
             print('Building content...')
-            for file in os.scandir(self.content_dir):
-                p = Post(file.path)
-                target_path = '%s/%s%s' % (self.build_dir, p.file_base_name, self.file_ext)
-                mktree(self.build_dir)
-                with open(target_path, 'w', encoding='utf-8') as fh:
-                    head = {'stylesheet_file_name': minified_stylesheet_path}
-                    fh.write(tpl_loader.env.get_template(
-                        'index.html' if p.file_base_name == 'index' else 'post.html').render(
-                        post=p,
-                        head=head
-                    ))
-                print('Compiling {}...'.format(target_path))
+            with os.scandir(self.posts_dir) as it:
+                for entry in it:
+                    if entry.name.endswith('.md') and entry.is_file():
+                        p = Post(entry.path, self.lang)
+                        target_path = '%s/%s%s' % (self.build_dir, p.file_base_name, self.file_ext)
+                        mktree(self.build_dir)
+                        with open(target_path, 'w', encoding='utf-8') as fh:
+                            head = {'stylesheet_file_name': minified_stylesheet_path}
+                            fh.write(tpl_loader.env.get_template(
+                                'index.html' if p.file_base_name == 'index' else 'post.html').render(
+                                post=p,
+                                head=head
+                            ))
+                        print('Compiling {}...'.format(target_path))
+
+            print('Building notes...')
+            with os.scandir(self.notes_dir) as it:
+                self.build_dir = os.path.join(self.build_dir, 'notes')
+                notes = [Post(entry.path) for entry in it if entry.name.endswith('.md') and entry.is_file()]
+                note_titles = sorted(
+                    [{'title': note.meta['title'], 'link': f'{note.file_base_name}{self.file_ext}'} for note in notes],
+                    key=lambda k: k['title'])
+                note_titles.insert(0, {'title': 'Index', 'link': f'index{self.file_ext}'})
+                for note in notes:
+                    target_path = '%s/%s%s' % (self.build_dir, note.file_base_name, self.file_ext)
+                    mktree(self.build_dir)
+                    with open(target_path, 'w', encoding='utf-8') as fh:
+                        head = {'stylesheet_file_name': minified_stylesheet_path}
+                        fh.write(tpl_loader.env.get_template('notes/item.jinja2').render(
+                            post=note,
+                            head=head,
+                            is_note=True,
+                            notes=note_titles
+                        ))
+                    print('Compiling {}...'.format(note.meta['title']))
 
             print('Build was successful.')
             return True
@@ -115,11 +138,11 @@ class Tir(object):
             raise e
 
     def watch(self):
-        self.oc = hash_content(self.content_dir)
-        print('Now watching for changes...'.format(self.content_dir))
+        self.oc = hash_content(self.posts_dir)
+        print('Now watching for changes...'.format(self.posts_dir))
         while 1:
             time.sleep(2)
-            cc = hash_content(self.content_dir)
+            cc = hash_content(self.posts_dir)
             if self.oc == cc:
                 pass
             else:

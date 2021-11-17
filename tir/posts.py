@@ -6,6 +6,7 @@ import markdown
 from markdown.extensions.wikilinks import WikiLinkExtension
 
 from tir.parsers.markdown.links import CustomInlineLinksExtension
+from tir.parsers.markdown.local_links import LocalLinksExtension
 from tir.utils import remove_list_meta
 
 _EXCLUDED_FILES = ['index.md']
@@ -20,12 +21,13 @@ class Post(object):
     LINKS_DIR = normpath(join(CONTENT_DIR, 'links/'))
     MISC_DIR = normpath(join(CONTENT_DIR, 'misc/'))
 
-    def __init__(self, path: str = None):
-        self.path = path
+    def __init__(self, path: str = None, lang='en'):
+        self.path: str = path
         self.file_base_name = os.path.basename(os.path.splitext(self.path)[0])
         self.meta = None
         self.raw = None
         self.content = None
+        self.lang = lang
         self.parse()
 
     def parse(self):
@@ -42,7 +44,8 @@ class Post(object):
                     'markdown.extensions.def_list',
                     'markdown.extensions.tables',
                     'markdown.extensions.sane_lists',
-                    WikiLinkExtension(base_url='https://en.wikipedia.org/wiki/', end_url=''),
+                    WikiLinkExtension(base_url=f'https://{self.lang}.wikipedia.org/wiki/', end_url=''),
+                    LocalLinksExtension(),
                     CustomInlineLinksExtension()
                 ]
             )
@@ -67,3 +70,6 @@ class Post(object):
     def get_slugs():
         posts = listdir(Post.POSTS_DIR)
         return posts
+
+    def __repr__(self):
+        return f'<Post path={self.path}, file_name_base={self.file_base_name}, meta={self.meta} />'
