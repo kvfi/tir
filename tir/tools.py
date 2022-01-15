@@ -15,8 +15,7 @@ import os
 
 from csscompressor import compress
 
-from tir.settings import REQUIRED_PATHS
-from tir.utils import n_bit_hash
+from tir.config import REQUIRED_PATHS
 
 log = logging.getLogger(__name__)
 
@@ -34,12 +33,8 @@ def minify_file(path: str) -> str:
         content = f.read()
 
     css = compress(content)
-    h = str(n_bit_hash(content, 8))
 
-    minified_file_path = '%s.%s.css' % (path.replace('.css', ''), h)
-    with open(minified_file_path, 'w+', encoding='utf-8') as f:
+    with open(path, 'w+') as f:
         f.write(css)
 
-    os.remove(path)
-
-    return ntpath.basename(minified_file_path)
+    return ntpath.basename(path)

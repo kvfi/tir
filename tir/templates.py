@@ -7,6 +7,8 @@ from markdown.extensions.wikilinks import WikiLinkExtension
 from tir.parsers.markdown.links import CustomInlineLinksExtension
 from tir.posts import Post
 from tir.utils import format_date, url_for, _
+from tir.parsers.markdown.links import CustomInlineLinksExtension
+from tir.parsers.markdown.local_links import LocalLinksExtension
 
 
 class TemplateLoader:
@@ -16,7 +18,8 @@ class TemplateLoader:
             config = {}
         self.conf = config
         self.env = Environment(
-            loader=FileSystemLoader(os.path.join(layout_directory, 'templates')),
+            loader=FileSystemLoader(os.path.join(
+                layout_directory, 'templates')),
             autoescape=True
         )
         self.md = markdown.Markdown(
@@ -27,7 +30,9 @@ class TemplateLoader:
                 'markdown.extensions.def_list',
                 'markdown.extensions.tables',
                 'markdown.extensions.sane_lists',
-                WikiLinkExtension(base_url='https://en.wikipedia.org/wiki/', end_url=''),
+                WikiLinkExtension(
+                    base_url=f'https://fr.wikipedia.org/wiki/', end_url=''),
+                LocalLinksExtension(),
                 CustomInlineLinksExtension()
             ]
         )
@@ -35,5 +40,5 @@ class TemplateLoader:
         self.env.globals['_'] = _
         self.env.globals['format_date'] = format_date
         self.env.globals['config'] = self.conf
-        self.env.globals['read_post'] = Post.read_post
+        # self.env.globals['read_post'] = Post.read_post
         self.env.globals['parse_md'] = self.md.convert

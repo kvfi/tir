@@ -6,10 +6,10 @@ import time
 import pkg_resources
 import sass
 
-from tir.files import rm_dir_files, hash_content
+from tir.deploy import Deploy
+from tir.files import hash_content, rm_dir_files
 from tir.posts import Post
-from tir.settings import REQUIRED_PATHS
-from tir.settings import load_settings
+from tir.config import REQUIRED_PATHS, get_config
 from tir.templates import TemplateLoader
 from tir.tools import is_init, minify_file
 from tir.utils import mktree
@@ -51,13 +51,11 @@ class Tir(object):
         Performs some checks on the environment before doing anything else.
         """
 
-        self.conf = load_settings()
+        self.conf = get_config()
 
-        self.theme = self.conf.get('visuals').get('theme') or 'default'
-        self.lang = self.conf.get('lang')
-        self.build_dir = self.conf['build_dir']
-        self.file_ext = '.{}'.format(self.conf['file_extension']) if 'file_extension' in self.conf and self.conf[
-            'file_extension'] else ''
+        self.theme = self.conf.visuals.theme
+        self.lang = self.conf.lang
+        self.build_dir = self.conf.build_dir
         self.working_dir = os.getcwd()
         self.content_dir = os.path.join(self.working_dir, 'content')
         self.posts_dir = os.path.join(self.content_dir, 'posts')
@@ -67,7 +65,8 @@ class Tir(object):
 
     def build(self, path: str = None):
         if not is_init():
-            print('Project does not seem to be initialized. Type "tir init" to create a Tir project here.')
+            print(
+                'Project does not seem to be initialized. Type "tir init" to create a Tir project here.')
             return False
         try:
             if os.path.exists(self.build_dir) and not path:
@@ -76,14 +75,17 @@ class Tir(object):
             print('Selected template:', tpl_visuals_dir)
             print('Replace assets files')
             assets_src_dir = os.path.join(tpl_visuals_dir, 'assets')
-            assets_target_dir = os.path.join(os.getcwd(), self.build_dir, 'static')
+            assets_target_dir = os.path.join(
+                os.getcwd(), self.build_dir, 'static')
 
-            tpl_loader = TemplateLoader(layout_directory=tpl_visuals_dir, config=self.conf)
+            tpl_loader = TemplateLoader(
+                layout_directory=tpl_visuals_dir, config=self.conf)
 
             print('Building static files...')
             css_dir = os.path.join(assets_target_dir, 'css')
             mktree(css_dir)
-            compiled_scss = sass.compile(filename=os.path.join(assets_src_dir, 'scss', 'main.scss'))
+            compiled_scss = sass.compile(filename=os.path.join(
+                assets_src_dir, 'scss', 'main.scss'))
             stylesheet_path = os.path.join(css_dir, 'stylesheet.css')
             with open(stylesheet_path, 'w+', encoding='utf-8') as f:
                 f.write(compiled_scss)
@@ -94,15 +96,22 @@ class Tir(object):
                 os.path.join(self.build_dir, 'static', 'images')
             )
 
+            shutil.copytree(
+                os.path.join(tpl_visuals_dir, 'assets', 'fonts'),
+                os.path.join(self.build_dir, 'static', 'fonts')
+            )
+
             print('Building content...')
             with os.scandir(self.posts_dir) as it:
                 for entry in it:
                     if entry.name.endswith('.md') and entry.is_file():
                         p = Post(entry.path, self.lang)
-                        target_path = '%s/%s%s' % (self.build_dir, p.file_base_name, self.file_ext)
+                        target_path = '%s/%s%s' % (self.build_dir,
+                                                   p.file_base_name, self.conf.file_extension)
                         mktree(self.build_dir)
                         with open(target_path, 'w', encoding='utf-8') as fh:
-                            head = {'stylesheet_file_name': minified_stylesheet_path}
+                            head = {
+                                'stylesheet_file_name': minified_stylesheet_path}
                             fh.write(tpl_loader.env.get_template(
                                 'index.html' if p.file_base_name == 'index' else 'post.html').render(
                                 post=p,
@@ -113,13 +122,17 @@ class Tir(object):
             print('Building notes...')
             with os.scandir(self.notes_dir) as it:
                 self.build_dir = os.path.join(self.build_dir, 'notes')
-                notes = [Post(entry.path) for entry in it if entry.name.endswith('.md') and entry.is_file()]
+                notes = [Post(entry.path) for entry in it if entry.name.endswith(
+                    '.md') and entry.is_file()]
                 note_titles = sorted(
-                    [{'title': note.meta['title'], 'link': f'{note.file_base_name}{self.file_ext}'} for note in notes],
+                    [{'title': note.meta['title'], 'link': f'{note.file_base_name}{self.conf.file_extension}'}
+                        for note in notes],
                     key=lambda k: k['title'])
-                note_titles.insert(0, {'title': 'Index', 'link': f'index{self.file_ext}'})
+                note_titles.insert(
+                    0, {'title': 'Index', 'link': f'index{self.conf.file_extension}'})
                 for note in notes:
-                    target_path = '%s/%s%s' % (self.build_dir, note.file_base_name, self.file_ext)
+                    target_path = '%s/%s%s' % (self.build_dir,
+                                               note.file_base_name, self.conf.file_extension)
                     mktree(self.build_dir)
                     with open(target_path, 'w', encoding='utf-8') as fh:
                         head = {'stylesheet_file_name': minified_stylesheet_path}
@@ -148,3 +161,7 @@ class Tir(object):
             else:
                 self.oc = cc
                 self.build()
+
+    def deploy(self):
+        d = Deploy()
+        d.deploy()

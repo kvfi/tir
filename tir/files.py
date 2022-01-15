@@ -1,5 +1,20 @@
 import os
-from typing import List
+from typing import List, Set
+
+from tir.posts import Post
+
+
+def acquire_files(include_private=False) -> Set[Post]:
+
+    posts: Set[Post] = set()
+
+    for root, dirs, files in os.walk(Post.CONTENT_DIR):
+        for file in files:
+            file_path: str = f'{root.replace(os.getcwd(), "")[1:]}/{file}'
+            p: Post = Post(file_path)
+            posts.add(p)
+
+    return posts
 
 
 def rm_dir_files(path: str):

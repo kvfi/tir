@@ -1,4 +1,5 @@
 import os
+import webbrowser
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 from tir.templates import TemplateLoader
@@ -17,7 +18,7 @@ class TirServer(BaseHTTPRequestHandler):
         if self.path == '/':
             posts = [file for file in os.scandir(os.path.join(os.getcwd(), 'content', 'posts'))]
             self.wfile.write(self.tpl.env.get_template('server/index.html').render(posts=posts).encode('utf8'))
-        elif self.path == '/write': 
+        elif self.path == '/write':
             self.wfile.write(self.tpl.env.get_template('server/index.html').render().encode('utf8'))
 
     def do_HEAD(self):
@@ -33,5 +34,8 @@ def run(server_class=HTTPServer, handler_class=TirServer, addr="localhost", port
     server_address = (addr, port)
     httpd = server_class(server_address, handler_class)
 
+    webbrowser.open(f'{addr}:{port}')
+
     print(f"Starting httpd server on {addr}:{port}")
+
     httpd.serve_forever()

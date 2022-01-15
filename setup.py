@@ -1,7 +1,8 @@
 import os
 from os.path import relpath
-from setuptools import find_packages, setup
 from typing import List
+
+from setuptools import find_packages, setup
 
 from tir.version import version
 
@@ -43,7 +44,10 @@ setup(
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
-    install_requires=get_requirements(),
+    install_requires=['babel', 'bcrypt', 'cffi', 'cryptography', 'csscompressor', 'colorama', 'jinja2', 'libsass', 'markdown',
+                      'markupsafe', 'marshmallow', 'marshmallow-dataclass[enum,union]', 'marshmallow-enum',
+                      'mypy-extensions', 'paramiko', 'pycparser', 'pynacl', 'pytz', 'pyyaml', 'six', 'typeguard',
+                      'typing-extensions', 'typing-inspect'],
     extra_requires={'test': ['pytest']},
     package_data={
         'tir': package_files(['tir/data'])

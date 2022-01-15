@@ -12,21 +12,21 @@ from tir.utils import remove_list_meta
 _EXCLUDED_FILES = ['index.md']
 
 
-class Post(object):
-    d = os.getcwd()
-    BASE_DIR = getenv('BASE_DIR', d)
+class Post:
+    BASE_DIR = getenv('BASE_DIR', os.getcwd())
     CONTENT_DIR = normpath(join(BASE_DIR, 'content'))
     POSTS_DIR = join(CONTENT_DIR, 'posts')
     RETROS_DIR = normpath(join(CONTENT_DIR, 'retrospectives'))
     LINKS_DIR = normpath(join(CONTENT_DIR, 'links/'))
     MISC_DIR = normpath(join(CONTENT_DIR, 'misc/'))
 
-    def __init__(self, path: str = None, lang='en'):
+    def __init__(self, path: str = None, online_only=True, lang='en'):
         self.path: str = path
         self.file_base_name = os.path.basename(os.path.splitext(self.path)[0])
         self.meta = None
         self.raw = None
         self.content = None
+        self.online_only = online_only
         self.lang = lang
         self.parse()
 
@@ -44,7 +44,8 @@ class Post(object):
                     'markdown.extensions.def_list',
                     'markdown.extensions.tables',
                     'markdown.extensions.sane_lists',
-                    WikiLinkExtension(base_url=f'https://{self.lang}.wikipedia.org/wiki/', end_url=''),
+                    WikiLinkExtension(
+                        base_url=f'https://{self.lang}.wikipedia.org/wiki/', end_url=''),
                     LocalLinksExtension(),
                     CustomInlineLinksExtension()
                 ]
@@ -54,7 +55,7 @@ class Post(object):
             if hasattr(md, 'Meta') and md.Meta:
                 meta = md.Meta
                 meta = remove_list_meta(meta)
-                if 'online' in meta and meta['online'] == 'false':
+                if 'online' in meta and (meta['online'] == 'false' or self.online_only):
                     pass
                 if hasattr(md, 'toc'):
                     meta['contents'] = md.toc
@@ -62,14 +63,5 @@ class Post(object):
         except FileNotFoundError as fnf:
             raise fnf
 
-    def read_post(self, name: str) -> 'Post':
-        path = '%s/%s.md' % (Post.POSTS_DIR, name)
-        return Post(path)
-
-    @staticmethod
-    def get_slugs():
-        posts = listdir(Post.POSTS_DIR)
-        return posts
-
     def __repr__(self):
-        return f'<Post path={self.path}, file_name_base={self.file_base_name}, meta={self.meta} />'
+        return f'<Post path={self.path}, file_name_base={self.file_base_name} />'

@@ -5,26 +5,11 @@ import sys
 import warnings
 from datetime import datetime
 from os import listdir
-from os.path import dirname, join
+from os.path import join
 from urllib.parse import urlparse
 
 import yaml
 from babel.dates import format_date as fd
-
-
-def load_env(path='default'):
-    directory = dirname(__file__)
-    if path == 'default':
-        name = join(directory, '../.env')
-    else:
-        name = path
-    with open(name, encoding='utf-8') as f:
-        env = f.readlines()
-    env_vars = {}
-    for var in env:
-        n = var.split('=')
-        env_vars.update({n[0]: n[1].rstrip()})
-    return env_vars
 
 
 def app_config():

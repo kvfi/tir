@@ -1,0 +1,22 @@
+build_dir: html
+file_extension: html
+lang: fr
+meta:
+  description: Dans un monde fou, écrire est un remède psychiatrique
+  copyright: L'ensemble du contenu de site n'est couvert sous aucun droit d'auteur et
+    fait partie du domaine public.
+  title: ouafi.net
+navigation:
+- link: /
+  title: Index
+- link: /Bio
+  title: Bio
+- link: /Notes
+  title: Notes
+- link: /Questions
+  title: Questions
+- link: https://github.com/kvfi
+  title: Code
+show-home-posts: false
+visuals:
+  theme: default
