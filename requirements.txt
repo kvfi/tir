@@ -30,7 +30,7 @@ libsass==0.21.0
     # via tir (setup.py)
 markdown==3.3.6
     # via tir (setup.py)
-markupsafe==2.0.1
+markupsafe==2.1.0
     # via
     #   jinja2
     #   tir (setup.py)
@@ -74,7 +74,7 @@ typeguard==2.13.3
     # via
     #   marshmallow-dataclass
     #   tir (setup.py)
-typing-extensions==4.0.1
+typing-extensions==4.1.1
     # via
     #   tir (setup.py)
     #   typing-inspect
