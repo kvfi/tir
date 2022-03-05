@@ -2,7 +2,7 @@ import hashlib
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import ClassVar, List, Set, Any
+from typing import ClassVar, List, Set, Any, Union
 
 import marshmallow_dataclass
 import paramiko
@@ -75,7 +75,7 @@ class Deploy:
         self.ssh_client = client
         self.sftp_client = self.ssh_client.open_sftp()
 
-    def _get_remote_lock(self) -> Any | None:
+    def _get_remote_lock(self) -> Any:
         c = Cache()
         dc = c.create_deployment_cache(self.config)
         try:
@@ -105,7 +105,7 @@ class Deploy:
         if self.config.path is not path:
             self.sftp_client.rmdir(path)
 
-    def _upload_file(self, f: LockFileItem | StaticFile):
+    def _upload_file(self, f: Union[LockFileItem, StaticFile]):
 
         if isinstance(f, LockFileItem):
             lf = StaticFile()

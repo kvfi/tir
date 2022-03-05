@@ -2,12 +2,11 @@ from colorama import Fore
 
 
 def cprint(color: str, txt: str):
-    match color:
-        case 'GREEN':
-            print(Fore.GREEN + txt)
-        case 'RED':
-            print(Fore.RED + txt)
-        case 'YELLOW':
-            print(Fore.YELLOW + txt)
-        case _:
-            print(txt)
+    if color == 'GREEN':
+        print(Fore.GREEN + txt)
+    elif color == 'RED':
+        print(Fore.RED + txt)
+    elif color == 'YELLOW':
+        print(Fore.YELLOW + txt)
+    else:
+        print(txt)
