@@ -6,41 +6,15 @@ import time
 import pkg_resources
 import sass
 
+from tir.config import REQUIRED_PATHS, get_config
 from tir.deploy import Deploy
 from tir.files import hash_content, rm_dir_files
 from tir.posts import Post
-from tir.config import REQUIRED_PATHS, get_config
 from tir.templates import TemplateLoader
 from tir.tools import is_init, minify_file
 from tir.utils import mktree
 
 logger = logging.getLogger(__name__)
-
-
-def init():
-    if is_init():
-        return False
-    print('Initializing Tir project...')
-    skeleton_dirs = REQUIRED_PATHS
-    skeleton_files = ['tir.yml']
-    for skeleton_dir in skeleton_dirs:
-        mktree(skeleton_dir)
-    for skeleton_file in skeleton_files:
-        shutil.copyfile(
-            pkg_resources.resource_filename(
-                'tir',
-                'data/{}'.format(skeleton_file)
-            ), '{}/{}'.format(os.getcwd(), skeleton_file)
-        )
-
-    # copy quickstart data
-    shutil.copytree(
-        pkg_resources.resource_filename('tir', 'data'),
-        os.path.join(os.getcwd()),
-        dirs_exist_ok=True
-    )
-    print('Tir project was successfully installed.')
-    return True
 
 
 class Tir(object):
@@ -62,6 +36,31 @@ class Tir(object):
         self.notes_dir = os.path.join(self.content_dir, 'notes')
 
         self.oc = []
+
+    def init(self):
+        if is_init():
+            return False
+        print('Initializing Tir project...')
+        skeleton_dirs = REQUIRED_PATHS
+        skeleton_files = ['tir.yml']
+        for skeleton_dir in skeleton_dirs:
+            mktree(skeleton_dir)
+        for skeleton_file in skeleton_files:
+            shutil.copyfile(
+                pkg_resources.resource_filename(
+                    'tir',
+                    'data/{}'.format(skeleton_file)
+                ), '{}/{}'.format(os.getcwd(), skeleton_file)
+            )
+
+        # copy quickstart data
+        shutil.copytree(
+            pkg_resources.resource_filename('tir', 'data'),
+            os.path.join(os.getcwd()),
+            dirs_exist_ok=True
+        )
+        print('Tir project was successfully installed.')
+        return True
 
     def build(self, path: str = None):
         if not is_init():
@@ -121,7 +120,7 @@ class Tir(object):
                     '.md') and entry.is_file()]
                 note_titles = sorted(
                     [{'title': note.meta['title'], 'link': f'{note.file_base_name}{self.conf.file_extension}'}
-                        for note in notes],
+                     for note in notes],
                     key=lambda k: k['title'])
                 note_titles.insert(
                     0, {'title': 'Index', 'link': f'index{self.conf.file_extension}'})

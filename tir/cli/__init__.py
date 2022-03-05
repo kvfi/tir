@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 def main():
     parser = argparse.ArgumentParser(description='Tir CLI')
     group = parser.add_argument_group('test')
-    group.add_argument('command',  help='command to execute',
+    group.add_argument('command', help='command to execute',
                        choices=['init', 'build', 'watch', 'server', 'deploy', 'test'])
 
     args = parser.parse_args()
@@ -18,19 +18,18 @@ def main():
 
     print(args.command)
 
-    match args.command:
-        case 'init':
-            tir.init()
-        case 'build':
-            tir.build()
-        case 'deploy':
-            tir.deploy()
-        case 'watch':
-            tir.watch()
-        case 'test':
-            print('ok')
-        case 'server':
-            server.run()
+    if args.command == 'init':
+        tir.init()
+    elif args.command == 'build':
+        tir.build()
+    elif args.command == 'deploy':
+        tir.deploy()
+    elif args.command == 'watch':
+        tir.watch()
+    elif args.command == 'server':
+        server.run()
+    else:
+        print('Command not found')
 
 
 if __name__ == '__main__':
