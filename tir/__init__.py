@@ -96,11 +96,6 @@ class Tir(object):
                 os.path.join(self.build_dir, 'static', 'images')
             )
 
-            shutil.copytree(
-                os.path.join(tpl_visuals_dir, 'assets', 'fonts'),
-                os.path.join(self.build_dir, 'static', 'fonts')
-            )
-
             print('Building content...')
             with os.scandir(self.posts_dir) as it:
                 for entry in it:
