@@ -1,5 +1,5 @@
 import os
-from os.path import relpath
+from os.path import realpath
 from typing import List
 
 from setuptools import find_packages, setup
