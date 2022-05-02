@@ -17,7 +17,7 @@ class Deployment(Schema):
     path: str
     username: str
     password: Optional[str]
-    key_file: Optional[str] = field(metadata=dict(data_key='key-file'))
+    key_file: Optional[str] = field(metadata=dict(data_key="key-file"))
     Schema: ClassVar[Type[Schema]] = Schema
 
 
@@ -61,13 +61,17 @@ class Config(Schema):
     meta: ConfigMeta = field(default_factory=dict)
     navigation: List[NavigationItem] = field(default_factory=list)
     show_home_posts: bool = field(
-        metadata=dict(data_key='show-home-posts'), default=False)
+        metadata=dict(data_key="show-home-posts"), default=False
+    )
     visuals: Visuals = field(default_factory=Visuals)
     file_extension: str = field(
-        default='html', metadata=(dict(missing=False, allow_none=True)))
-    lang: str = field(default='en_US')
+        default="html", metadata=(dict(missing=False, allow_none=True))
+    )
+    lang: str = field(default="en_US")
     working_dir: Any = field(default=Path.cwd())
     Schema: ClassVar[Type[Schema]] = Schema
 
     def __post_init__(self):
-        self.file_extension = "" if self.file_extension is None else f'.{self.file_extension}'
+        self.file_extension = (
+            "" if self.file_extension is None else f".{self.file_extension}"
+        )

@@ -23,14 +23,14 @@ class LocalLinksProcessor(LinkInlineProcessor):
 
         el.set("href", href)
 
-        icons = ['wikipedia']
+        icons = ["wikipedia"]
         site_name = get_domain(href, include_ext=False)
 
         if site_name in icons:
-            el.set('class', 'icon ' + site_name)
+            el.set("class", "icon " + site_name)
 
-        if site_name in ['ouafi', '']:
-            el.set('class', 'icon internal')
+        if site_name in ["ouafi", ""]:
+            el.set("class", "icon internal")
 
         if title is not None:
             el.set("title", title)
@@ -39,6 +39,7 @@ class LocalLinksProcessor(LinkInlineProcessor):
 
 
 class LocalLinksExtension(Extension):
-
     def extendMarkdown(self, md):
-        md.inlinePatterns.register(LocalLinksProcessor(r'\[.*?\]', md), 'local_link', 1)
+        md.inlinePatterns.register(
+            LocalLinksProcessor(r"\[.*?\]", md), "local_link", 1
+        )
