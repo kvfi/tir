@@ -25,7 +25,7 @@ class StaticFile(Schema):
     path: Any = field(default_factory=Path.cwd)
 
 
-'''@dataclass
+"""@dataclass
 class DeltaLock:
     to_delete: Set[Path]
-'''
+"""

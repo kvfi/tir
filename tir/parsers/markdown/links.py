@@ -22,14 +22,14 @@ class CustomLinkInlineProcessor(LinkInlineProcessor):
 
         el.set("href", href)
 
-        icons = ['wikipedia']
+        icons = ["wikipedia"]
         site_name = get_domain(href, include_ext=False)
 
         if site_name in icons:
-            el.set('class', 'icon ' + site_name)
+            el.set("class", "icon " + site_name)
 
-        if site_name in ['ouafi', '']:
-            el.set('class', 'icon internal')
+        if site_name in ["ouafi", ""]:
+            el.set("class", "icon internal")
 
         if title is not None:
             el.set("title", title)
@@ -38,6 +38,7 @@ class CustomLinkInlineProcessor(LinkInlineProcessor):
 
 
 class CustomInlineLinksExtension(Extension):
-
     def extendMarkdown(self, md):
-        md.inlinePatterns.register(CustomLinkInlineProcessor(LINK_RE, md), 'link', 160)
+        md.inlinePatterns.register(
+            CustomLinkInlineProcessor(LINK_RE, md), "link", 160
+        )
