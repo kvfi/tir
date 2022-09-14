@@ -49,7 +49,7 @@ mypy-extensions==0.4.3
     # via
     #   tir (setup.py)
     #   typing-inspect
-paramiko==2.9.2
+paramiko==2.9.3
     # via tir (setup.py)
 pycparser==2.21
     # via
