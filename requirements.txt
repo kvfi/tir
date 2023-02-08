@@ -18,7 +18,7 @@ cffi==1.15.0
     #   tir (setup.py)
 colorama==0.4.4
     # via tir (setup.py)
-cryptography==36.0.1
+cryptography==39.0.1
     # via
     #   paramiko
     #   tir (setup.py)
