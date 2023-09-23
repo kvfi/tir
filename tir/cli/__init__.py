@@ -10,20 +10,16 @@ def main():
     parser = argparse.ArgumentParser(description='Tir CLI')
     group = parser.add_argument_group('test')
     group.add_argument('command', help='command to execute',
-                       choices=['init', 'build', 'watch', 'server', 'deploy', 'test'])
+                       choices=['init', 'build', 'watch', 'server', 'test'])
 
     args = parser.parse_args()
 
     tir = Tir()
 
-    print(args.command)
-
     if args.command == 'init':
         tir.init()
     elif args.command == 'build':
         tir.build()
-    elif args.command == 'deploy':
-        tir.deploy()
     elif args.command == 'watch':
         tir.watch()
     elif args.command == 'server':

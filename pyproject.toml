@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "tir"
+version = "0.1.0"
+description = ""
+authors = ["kvfi <mail@ouafi.net>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pyyaml = "^6.0.1"
+libsass = "^0.22.0"
+marshmallow-dataclass = "^8.6.0"
+markdown = "^3.4.4"
+babel = "^2.12.1"
+jinja2 = "^3.1.2"
+csscompressor = "^0.9.5"
+pytest = "^7.4.2"
+
+
+[tool.poetry.group.test]
+optional = true
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+tir = "tir.cli:main"

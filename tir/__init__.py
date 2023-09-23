@@ -7,7 +7,6 @@ import pkg_resources
 import sass
 
 from tir.config import REQUIRED_PATHS, get_config
-from tir.deploy import Deploy
 from tir.files import hash_content, rm_dir_files
 from tir.posts import Post
 from tir.templates import TemplateLoader
@@ -37,7 +36,8 @@ class Tir(object):
 
         self.oc = []
 
-    def init(self):
+    @staticmethod
+    def init():
         if is_init():
             return False
         print('Initializing Tir project...')
@@ -155,7 +155,3 @@ class Tir(object):
             else:
                 self.oc = cc
                 self.build()
-
-    def deploy(self):
-        d = Deploy()
-        d.deploy()

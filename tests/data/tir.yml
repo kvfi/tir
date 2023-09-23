@@ -1,22 +1,16 @@
 build_dir: html
 file_extension: html
-lang: fr
 meta:
-  description: Dans un monde fou, écrire est un remède psychiatrique
-  copyright: L'ensemble du contenu de site n'est couvert sous aucun droit d'auteur et
-    fait partie du domaine public.
-  title: ouafi.net
+  description: When it is raining heavily.
+  copyright: No copyright only copylefts
+  title: Site title
 navigation:
 - link: /
-  title: Index
-- link: /Bio
-  title: Bio
-- link: /Notes
-  title: Notes
-- link: /Questions
-  title: Questions
-- link: https://github.com/kvfi
-  title: Code
+  title: Home
+- link: /about
+  title: About
+- link: /link
+  title: Link1
 show-home-posts: false
 visuals:
   theme: default
