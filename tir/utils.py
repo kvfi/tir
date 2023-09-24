@@ -9,8 +9,6 @@ from os.path import join
 from urllib.parse import urlparse
 
 import yaml
-from babel.dates import format_date as fd
-
 
 def app_config():
     try:
@@ -93,8 +91,8 @@ def url_for(route, slug=None, filename=''):
 
 def format_date(value):
     try:
-        d = datetime.strptime(value, '%Y-%m-%d')
-        return fd(d, locale='fr')
+        d = datetime.strptime(value, '%Y/%m/%d')
+        return d
     except (ValueError, TypeError):
         return value
 
