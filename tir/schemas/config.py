@@ -60,8 +60,8 @@ class Config(Schema):
     deployment: Optional[Deployment]
     meta: ConfigMeta = field(default_factory=dict)
     navigation: List[NavigationItem] = field(default_factory=list)
-    show_home_posts: bool = field(
-        metadata=dict(data_key='show-home-posts'), default=False)
+    recent_post_counter: int = field(
+        metadata=dict(data_key='recent-post-counter'), default=5)
     visuals: Visuals = field(default_factory=Visuals)
     file_extension: str = field(
         default='html', metadata=(dict(missing=False, allow_none=True)))

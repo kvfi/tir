@@ -1,34 +1,51 @@
-[tool.poetry]
-name = "tir"
-version = "0.1.0"
-description = ""
-authors = ["kvfi <mail@ouafi.net>"]
-readme = "README.md"
-
-
-[tool.poetry.dependencies]
-python = "^3.11"
-pyyaml = "^6.0.1"
-libsass = "^0.22.0"
-marshmallow-dataclass = "^8.6.0"
-markdown = "^3.4.4"
-jinja2 = "^3.1.2"
-csscompressor = "^0.9.5"
-pytest = "^7.4.2"
-
-
-[tool.poetry.group.test]
-optional = true
-
-
-[tool.poetry.group.test.dependencies]
-pytest = "^7.4.2"
-
-
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
+[project]
+name = "tir"
+version = "0.5.5"
+description = " Static site generator for the minimalist "
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE.txt" }
+keywords = ["blog", "site-generator", "website"]
+authors = [{ name = "Khalid Ouafi", email = "mail@ouafi.net" }]
+maintainers = [
+    { name = "Khalid Ouafi", email = "mail@ouafi.net" },
+]
 
-[tool.poetry.scripts]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only",
+]
+
+dependencies = [
+    "pyyaml>=6.0",
+    "libsass>=0.21.0",
+    "marshmallow-dataclass>=8.5.14",
+    "markdown>=3.4.4",
+    "jinja2>=3.1.2",
+    "csscompressor>=0.9.5"
+]
+
+[project.optional-dependencies]
+dev = ["check-manifest"]
+test = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "tox>=4.0",
+    "mock>=5.0"
+]
+
+[project.scripts]
 tir = "tir.cli:main"

@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 
 import yaml
 
+
 def app_config():
     try:
         with open('tir.yml', encoding='utf-8') as f:
@@ -107,3 +108,12 @@ def get_domain(url: str, include_ext=True) -> str:
     if len(domain_l) >= 2:
         domain = domain_l[-2]
     return domain
+
+
+def scantree(path):
+    """Recursively yield DirEntry objects for given directory."""
+    for entry in os.scandir(path):
+        if entry.is_dir(follow_symlinks=False):
+            yield from scantree(entry.path)  # see below for Python 2.x
+        else:
+            yield entry

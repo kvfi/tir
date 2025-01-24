@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pyyaml = "*"
+libsass = "*"
+marshmallow-dataclass = "*"
+markdown = "*"
+jinja2 = "*"
+csscompressor = "*"
+tir = {file = ".", editable = true}
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
+python_full_version = "3.12.4"

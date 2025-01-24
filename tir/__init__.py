@@ -3,7 +3,6 @@ import os
 import shutil
 import time
 
-import pkg_resources
 import sass
 
 from tir.config import REQUIRED_PATHS, get_config
@@ -11,7 +10,7 @@ from tir.files import hash_content, rm_dir_files
 from tir.posts import Post
 from tir.templates import TemplateLoader
 from tir.tools import is_init, minify_file
-from tir.utils import mktree
+from tir.utils import mktree, scantree
 
 logger = logging.getLogger(__name__)
 
@@ -95,49 +94,17 @@ class Tir(object):
                 os.path.join(self.build_dir, 'static', 'images')
             )
 
+            elements = []
+
             print('Building content...')
-            with os.scandir(self.posts_dir) as it:
-                for entry in it:
-                    if entry.name.endswith('.md') and entry.is_file():
-                        p = Post(entry.path, self.lang)
-                        target_path = '%s/%s%s' % (self.build_dir,
-                                                   p.file_base_name, self.conf.file_extension)
-                        mktree(self.build_dir)
-                        with open(target_path, 'w', encoding='utf-8') as fh:
-                            head = {
-                                'stylesheet_file_name': minified_stylesheet_path}
-                            fh.write(tpl_loader.env.get_template(
-                                'index.html' if p.file_base_name == 'index' else 'post.html').render(
-                                post=p,
-                                head=head
-                            ))
-                        print('Compiling {}...'.format(target_path))
 
-            print('Building notes...')
-            with os.scandir(self.notes_dir) as it:
-                self.build_dir = os.path.join(self.build_dir, 'notes')
-                notes = [Post(entry.path) for entry in it if entry.name.endswith(
-                    '.md') and entry.is_file()]
-                note_titles = sorted(
-                    [{'title': note.meta['title'], 'link': f'{note.file_base_name}{self.conf.file_extension}'}
-                     for note in notes],
-                    key=lambda k: k['title'])
-                note_titles.insert(
-                    0, {'title': 'Index', 'link': f'index{self.conf.file_extension}'})
-                for note in notes:
-                    target_path = '%s/%s%s' % (self.build_dir,
-                                               note.file_base_name, self.conf.file_extension)
-                    mktree(self.build_dir)
-                    with open(target_path, 'w', encoding='utf-8') as fh:
-                        head = {'stylesheet_file_name': minified_stylesheet_path}
-                        fh.write(tpl_loader.env.get_template('notes/item.jinja2').render(
-                            post=note,
-                            head=head,
-                            is_note=True,
-                            notes=note_titles
-                        ))
-                    print('Compiling {}...'.format(note.meta['title']))
+            for entry in scantree(self.posts_dir):
+                if entry.is_file():
+                    p = Post(entry.path, css_path=minified_stylesheet_path, tpl_loader=tpl_loader)
+                    elements.append(p)
 
+            for entry in elements:
+                entry.write()
             print('Build was successful.')
             return True
 
