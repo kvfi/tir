@@ -11,7 +11,6 @@ REQUIRED_PATHS = ['tir.yml', 'content', 'content/posts', 'layout']
 _DEFAULT_CONF_FILE = 'tir.yml'
 
 
-
 def get_config(path: str = None) -> Config:
     config_file_path: Path = Path.cwd().joinpath(path or _DEFAULT_CONF_FILE)
     if config_file_path.exists():

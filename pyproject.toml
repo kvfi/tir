@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tir"
-version = "0.7.1"
+version = "0.7.2"
 description = " Static site generator for the minimalist "
 readme = "README.md"
 requires-python = ">=3.9"
@@ -49,3 +49,6 @@ test = [
 
 [project.scripts]
 tir = "tir.cli:main"
+[tool.poetry.group.dev.dependencies]
+twine = "^6.1.0"
+

@@ -1,4 +1,3 @@
-from dataclasses import field
 from pathlib import Path
 from typing import List, Optional, Any
 
@@ -17,6 +16,16 @@ class ConfigMeta(BaseModel):
     description: str
     title: str
     copyright: Optional[str]
+
+class ConfigSite(BaseModel):
+
+    model_config = ConfigDict(
+        alias_generator=to_kebab,
+        populate_by_name=True
+    )
+
+    title: str
+    tagline: Optional[str]
 
 class NavigationItem(BaseModel):
 
@@ -48,6 +57,7 @@ class Config(BaseModel):
 
     build_dir: str
     meta: ConfigMeta
+    site: ConfigSite
     navigation: List[NavigationItem]
     recent_post_counter: PositiveInt = 5
     visuals: Visuals
