@@ -1,73 +1,59 @@
 from dataclasses import field
-from datetime import datetime
-from pathlib import Path, PosixPath, WindowsPath
-from typing import ClassVar, List, Optional, Type, Union, Any
+from pathlib import Path
+from typing import List, Optional, Any
 
-from marshmallow import Schema, fields
-from marshmallow_dataclass import dataclass
+from pydantic import BaseModel, ConfigDict, PositiveInt
 
-
-@dataclass
-class Deployment(Schema):
-    class Meta:
-        ordered: True
-
-    host: str
-    port: int
-    path: str
-    username: str
-    password: Optional[str]
-    key_file: Optional[str] = field(metadata=dict(data_key='key-file'))
-    Schema: ClassVar[Type[Schema]] = Schema
+from tir.utils import to_kebab
 
 
-@dataclass
-class ConfigMeta(Schema):
-    class Meta:
-        ordered: True
+class ConfigMeta(BaseModel):
+
+    model_config = ConfigDict(
+        alias_generator=to_kebab,
+        populate_by_name=True
+    )
 
     description: str
     title: str
     copyright: Optional[str]
-    Schema: ClassVar[Type[Schema]] = Schema
 
+class NavigationItem(BaseModel):
 
-@dataclass
-class NavigationItem(Schema):
-    class Meta:
-        ordered: True
+    model_config = ConfigDict(
+        alias_generator=to_kebab,
+        populate_by_name=True,
+    )
 
     link: str
     title: str
-    Schema: ClassVar[Type[Schema]] = Schema
 
 
-@dataclass
-class Visuals(Schema):
-    class Meta:
-        ordered: True
+class Visuals(BaseModel):
 
-    theme: str = field(default="default")
-    Schema: ClassVar[Type[Schema]] = Schema
+    model_config = ConfigDict(
+        alias_generator=to_kebab,
+        populate_by_name=True
+    )
+
+    theme: str = 'default'
 
 
-@dataclass
-class Config(Schema):
-    class Meta:
-        ordered: True
+class Config(BaseModel):
+    
+    model_config = ConfigDict(
+        alias_generator=to_kebab,
+        populate_by_name=True,
+    )
 
     build_dir: str
-    deployment: Optional[Deployment]
-    meta: ConfigMeta = field(default_factory=dict)
-    navigation: List[NavigationItem] = field(default_factory=list)
-    recent_post_counter: int = field(
-        metadata=dict(data_key='recent-post-counter'), default=5)
-    visuals: Visuals = field(default_factory=Visuals)
-    file_extension: str = field(
-        default='html', metadata=(dict(missing=False, allow_none=True)))
-    lang: str = field(default='en_US')
-    working_dir: Any = field(default=Path.cwd())
-    Schema: ClassVar[Type[Schema]] = Schema
+    meta: ConfigMeta
+    navigation: List[NavigationItem]
+    recent_post_counter: PositiveInt = 5
+    visuals: Visuals
+    file_extension: str = 'html'
+    lang: str = 'en_US'
+    working_dir: Any = Path.cwd()
 
-    def __post_init__(self):
+    def model_post_init(self, __context):
         self.file_extension = "" if self.file_extension is None else f'.{self.file_extension}'

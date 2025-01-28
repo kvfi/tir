@@ -117,3 +117,7 @@ def scantree(path):
             yield from scantree(entry.path)  # see below for Python 2.x
         else:
             yield entry
+
+
+def to_kebab(field_name: str) -> str:
+    return field_name.replace("_", "-")
