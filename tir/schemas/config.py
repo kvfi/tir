@@ -7,7 +7,6 @@ from tir.utils import to_kebab
 
 
 class ConfigMeta(BaseModel):
-
     model_config = ConfigDict(
         alias_generator=to_kebab,
         populate_by_name=True
@@ -17,8 +16,8 @@ class ConfigMeta(BaseModel):
     title: str
     copyright: Optional[str]
 
-class ConfigSite(BaseModel):
 
+class ConfigSite(BaseModel):
     model_config = ConfigDict(
         alias_generator=to_kebab,
         populate_by_name=True
@@ -27,8 +26,8 @@ class ConfigSite(BaseModel):
     title: str
     tagline: Optional[str]
 
-class NavigationItem(BaseModel):
 
+class NavigationItem(BaseModel):
     model_config = ConfigDict(
         alias_generator=to_kebab,
         populate_by_name=True,
@@ -38,8 +37,27 @@ class NavigationItem(BaseModel):
     title: str
 
 
-class Visuals(BaseModel):
+class HomeContentElement(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_kebab,
+        populate_by_name=True,
+    )
 
+    name: str
+    url: str
+
+
+class HomeContent(BaseModel):
+    model_config = ConfigDict(
+        alias_generator=to_kebab,
+        populate_by_name=True,
+    )
+
+    section: str
+    elements: List[HomeContentElement]
+
+
+class Visuals(BaseModel):
     model_config = ConfigDict(
         alias_generator=to_kebab,
         populate_by_name=True
@@ -49,7 +67,6 @@ class Visuals(BaseModel):
 
 
 class Config(BaseModel):
-    
     model_config = ConfigDict(
         alias_generator=to_kebab,
         populate_by_name=True,
@@ -57,9 +74,9 @@ class Config(BaseModel):
 
     build_dir: str
     meta: ConfigMeta
-    site: ConfigSite
     navigation: List[NavigationItem]
     recent_post_counter: PositiveInt = 5
+    home_content: List[HomeContent]
     visuals: Visuals
     file_extension: str = 'html'
     lang: str = 'en_US'

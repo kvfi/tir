@@ -73,7 +73,8 @@ class Post:
         return f'<Post path={self.source}, file_name_base={self.file_base_name} />'
 
     def write(self):
-        target_path = pathlib.Path(self.conf.build_dir) / pathlib.Path(self.source).parent.relative_to(self.POSTS_DIR) / (self.meta['slug'] + self.conf.file_extension)
+        target_path = pathlib.Path(self.conf.build_dir) / pathlib.Path(self.source).parent.relative_to(
+            self.POSTS_DIR) / (self.meta['slug'] + self.conf.file_extension)
         print('target full path: %s' % target_path)
         os.makedirs(pathlib.Path(target_path).parent, exist_ok=True)
         with open(target_path, 'w', encoding='utf-8') as fh:
@@ -84,5 +85,4 @@ class Post:
                 'index.html' if self.file_base_name == 'index' else 'post.html').render(
                 post=self,
                 head=head,
-                recent_posts=[3]
-            ))
+                home_content=self.conf.home_content))
