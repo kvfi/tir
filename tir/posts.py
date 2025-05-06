@@ -75,7 +75,7 @@ class Post:
     def write(self):
         target_path = pathlib.Path(self.conf.build_dir) / pathlib.Path(self.source).parent.relative_to(
             self.POSTS_DIR) / (self.meta['slug'] + self.conf.file_extension)
-        print('target full path: %s' % target_path)
+        print(f'Generating {target_path} from {self.source}...')
         os.makedirs(pathlib.Path(target_path).parent, exist_ok=True)
         with open(target_path, 'w', encoding='utf-8') as fh:
             head = {

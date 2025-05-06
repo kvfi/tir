@@ -12,6 +12,7 @@ todos:
 import logging
 import ntpath
 import os
+from typing import Union
 
 from csscompressor import compress
 
@@ -28,7 +29,7 @@ def is_init() -> bool:
         return False
 
 
-def minify_file(path: str) -> str:
+def minify_file(path: str) -> Union[str, None]:
     with open(path, 'r', encoding='utf-8') as f:
         content = f.read()
 
