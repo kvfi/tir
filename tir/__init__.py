@@ -96,6 +96,15 @@ class Tir(object):
                     os.path.join(self.theme_path, 'assets', 'images'),
                     os.path.join(self.build_dir, 'static', 'images'), dirs_exist_ok=True
                 )
+                
+                # Copy scripts directory if it exists
+                scripts_src_dir = os.path.join(self.theme_path, 'assets', 'scripts')
+                if os.path.exists(scripts_src_dir):
+                    shutil.copytree(
+                        scripts_src_dir,
+                        os.path.join(self.build_dir, 'static', 'scripts'), dirs_exist_ok=True
+                    )
+                    print('Copied scripts to static directory.')
             else:
                 print(f'CSS file {main_css_path} does not exist')
 
