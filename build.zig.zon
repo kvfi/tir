@@ -1,0 +1,19 @@
+.{
+    .name = "tir",
+    .version = "0.8.0",
+    .minimum_zig_version = "0.13.0",
+    .dependencies = .{
+        .koino = .{
+            .url = "https://github.com/kivikakk/koino/archive/refs/heads/main.tar.gz",
+            .hash = "1220c9e1c7c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c",
+        },
+        .yaml = .{
+            .url = "https://github.com/kubkon/zig-yaml/archive/refs/tags/0.1.1.tar.gz",
+            .hash = "1220c9e1c7c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c",
+        },
+        .ztl = .{
+            .url = "https://github.com/paulsmith/ztl/archive/refs/heads/main.tar.gz",
+            .hash = "1220c9e1c7c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c5e0c",
+        },
+    },
+}
